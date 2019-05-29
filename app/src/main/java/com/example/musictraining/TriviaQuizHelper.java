@@ -34,12 +34,17 @@ public class TriviaQuizHelper extends SQLiteOpenHelper {
     private static final String OPTD = "OPTD";
     //Answer
     private static final String ANSWER = "ANSWER";
-        //wavFile
+    //wavFile
     private static final String WAVFILE = "WAVFILE";
+    //QuestTpye
+    private static final String QTYPE = "QTYPE";
 
     //So basically we are now creating table with first column-id , sec column-question , third column -option A, fourth column -option B , Fifth column -option C , sixth column -option D , seventh column - answer(i.e ans of  question)
     //private static final String CREATE_TABLE = "CREATE TABLE " + TABLE_NAME + " ( " + UID + " INTEGER PRIMARY KEY AUTOINCREMENT , " + QUESTION + " VARCHAR(255), " + OPTA + " VARCHAR(255), " + OPTB + " VARCHAR(255), " + OPTC + " VARCHAR(255), " + OPTD + " VARCHAR(255), " + ANSWER + " VARCHAR(255));";
-    private static final String CREATE_TABLE = "CREATE TABLE " + TABLE_NAME + " ( " + UID + " INTEGER PRIMARY KEY AUTOINCREMENT , " + QUESTION + " VARCHAR(255), " + OPTA + " VARCHAR(255), " + OPTB + " VARCHAR(255), " + OPTC + " VARCHAR(255), " + OPTD + " VARCHAR(255), " + ANSWER + " VARCHAR(255), " + WAVFILE + " VARCHAR(255));";
+    //private static final String CREATE_TABLE = "CREATE TABLE " + TABLE_NAME + " ( " + UID + " INTEGER PRIMARY KEY AUTOINCREMENT , " + QUESTION + " VARCHAR(255), " + OPTA + " VARCHAR(255), " + OPTB + " VARCHAR(255), " + OPTC + " VARCHAR(255), " + OPTD + " VARCHAR(255), " + ANSWER + " VARCHAR(255), " + WAVFILE + " VARCHAR(255));";
+    private static final String CREATE_TABLE = "CREATE TABLE " + TABLE_NAME + " ( " + UID + " INTEGER PRIMARY KEY AUTOINCREMENT , " + QUESTION + " VARCHAR(255), " + OPTA + " VARCHAR(255), " + OPTB + " VARCHAR(255), " + OPTC + " VARCHAR(255), " + OPTD + " VARCHAR(255), " + ANSWER + " VARCHAR(255), " + WAVFILE + " VARCHAR(255)," + QTYPE + " VARCHAR(255));";
+
+
     //Drop table query
     private static final String DROP_TABLE = "DROP TABLE IF EXISTS " + TABLE_NAME;
 
@@ -63,11 +68,46 @@ public class TriviaQuizHelper extends SQLiteOpenHelper {
 
     void allQuestion() {
         ArrayList<TriviaQuestion> arraylist = new ArrayList<>();
+        // Note Name
+//        arraylist.add(new TriviaQuestion("What's the Do's Note Name ?", "D", "C", "E", "B", "C", "name1.wav",1));
+//        arraylist.add(new TriviaQuestion("What's the Re's Note Name ?", "A", "B", "D", "G", "D", "name2.wav",1));
+//        arraylist.add(new TriviaQuestion("What's the Mi's Note Name ?", "G", "E", "F", "A", "E", "name3.wav",1));
+//        arraylist.add(new TriviaQuestion("What's the Fa's Note Name ?", "F", "D", "A", "B", "F", "name4.wav",1));
+//        arraylist.add(new TriviaQuestion("What's the Sol's Note Name ?", "B", "C", "D", "G", "G", "name5.wav",1));
+//        arraylist.add(new TriviaQuestion("What's the La's Note Name ?", "A", "E", "F", "C", "A", "name6.wav",1));
+//        arraylist.add(new TriviaQuestion("What's the Si's Note Name ?", "F", "D", "B", "G", "B", "name7.wav",1));
+//
+//        //Clef
+//        arraylist.add(new TriviaQuestion("What's the treble clef ?", "B", "C", "D", "T", "T", "clef1.wav",2));
+//        arraylist.add(new TriviaQuestion("What's the Bass clef ?", "T", "I", "R", "B", "B", "clef2.wav",2));
+//        arraylist.add(new TriviaQuestion("What's the Sharp signature ?", "S", "T", "I", "F", "S", "clef3.wav",2));
+//        arraylist.add(new TriviaQuestion("What's the Flat signature ?", "F", "L", "S", "T", "F", "clef4.wav",2));
+//        arraylist.add(new TriviaQuestion("What's the crescendo signature ?", "C", "T", "L", "F", "C", "clef5.wav",2));
+//        arraylist.add(new TriviaQuestion("What's the decrescendo signature ?", "F", "B", "S", "D", "D", "clef6.wav",2));
+//        arraylist.add(new TriviaQuestion("What's the slur signature ?", "C", "T", "L", "F", "L", "clef7.wav",2));
+//        arraylist.add(new TriviaQuestion("What's the tie signature ?", "F", "B", "S", "I", "I", "clef8.wav",2));
+//        arraylist.add(new TriviaQuestion("What's the repeat signature ?", "F", "R", "S", "I", "R", "clef8.wav",2));
+//
+//        //musical Notation
+//        arraylist.add(new TriviaQuestion("What's the Do's location ?","F", "D","B", "C", "C",  "staff1.wav",3));
+//        arraylist.add(new TriviaQuestion("What's the Re's location ?","G","E","D", "A", "D", "staff2.wav",3));
+//        arraylist.add(new TriviaQuestion("What's the Mi's location ?","A","B","D", "E", "E", "staff3.wav",3));
+//        arraylist.add(new TriviaQuestion("What's the Fa's location ?","B","F","D", "G", "F","staff4.wav",3));
+//        arraylist.add(new TriviaQuestion("What's the Sol's location ?","F","G","A", "B", "G",  "staff5.wav",3));
+//        arraylist.add(new TriviaQuestion("What's the La's location ?","D","A","E", "B", "A",   "staff6.wav",3));
+//        arraylist.add(new TriviaQuestion("What's the Si's location ?","A","E","F", "B", "B","staff7.wav",3));
 
-        arraylist.add(new TriviaQuestion("Galileo was an Italian astronomer who developed?", "Telescope", "Airoplane", "Electricity", "Train", "Telescope1", "q1.wav"));
-        arraylist.add(new TriviaQuestion("Galileo was an Italian astronomer who developed?", "Telescope", "Airoplane", "Electricity", "Train", "Telescope2", "q2.wav"));
-        arraylist.add(new TriviaQuestion("Galileo was an Italian astronomer who developed?", "Telescope", "Airoplane", "Electricity", "Train", "Telescope3", "q3.wav"));
-        arraylist.add(new TriviaQuestion("Galileo was an Italian astronomer who developed?", "Telescope", "Airoplane", "Electricity", "Train", "Telescope4", "q4.wav"));
+        //musical Notation
+        arraylist.add(new TriviaQuestion("What's the whole note ?", "S", "M", "D", "Q", "S", "note1.wav",4));
+        arraylist.add(new TriviaQuestion("What's the half note ?", "D", "M", "Q", "C", "M", "note2.wav",4));
+        arraylist.add(new TriviaQuestion("What's the quarter note ?", "M", "S", "C", "D", "C", "note3.wav",4));
+        arraylist.add(new TriviaQuestion("What's the eighth note ?", "S", "M", "D", "Q", "Q", "note4.wav",4));
+        arraylist.add(new TriviaQuestion("What's the sixteenth note ?", "C", "Q", "D", "S", "D", "note5.wav",4));
+        arraylist.add(new TriviaQuestion("What's the whole REST note ?", "H", "W", "I", "E", "W", "note6.wav",4));
+        arraylist.add(new TriviaQuestion("What's the half REST note ?", "H", "E", "U", "W", "H", "note7.wav",4));
+        arraylist.add(new TriviaQuestion("What's the quarter REST note ?", "I", "U", "E", "H", "U", "note8.wav",4));
+        arraylist.add(new TriviaQuestion("What's the eighth REST note ?", "U", "W", "E", "H", "E", "note9.wav",4));
+        arraylist.add(new TriviaQuestion("What's the sixteenth REST note ?", "W", "H", "U", "I", "I", "note10.wav",4));
 
 
         this.addAllQuestions(arraylist);
@@ -88,10 +128,13 @@ public class TriviaQuizHelper extends SQLiteOpenHelper {
                 values.put(OPTD, question.getOptD());
                 values.put(ANSWER, question.getAnswer());
                 values.put(WAVFILE,question.getWavPath());
+                values.put(QTYPE, question.getQuestType());
+
                 db.insert(TABLE_NAME, null, values);
 
-                Log.d(TAG, "ans: "+ values.get(ANSWER));
+                Log.d(TAG, "Qtype: "+ values.get(QTYPE));
                 Log.d(TAG, "wav: "+ values.get(WAVFILE));
+
             }
             db.setTransactionSuccessful();
         } finally {
@@ -106,7 +149,7 @@ public class TriviaQuizHelper extends SQLiteOpenHelper {
         List<TriviaQuestion> questionsList = new ArrayList<>();
         SQLiteDatabase db = this.getWritableDatabase();
         db.beginTransaction();
-        String coloumn[] = {UID, QUESTION, OPTA, OPTB, OPTC, OPTD, ANSWER,WAVFILE};
+        String coloumn[] = {UID, QUESTION, OPTA, OPTB, OPTC, OPTD, ANSWER,WAVFILE,QTYPE};
         Cursor cursor = db.query(TABLE_NAME, coloumn, null, null, null, null, null);
 
         int i=0;
@@ -120,10 +163,13 @@ public class TriviaQuizHelper extends SQLiteOpenHelper {
             question.setOptD(cursor.getString(5));
             question.setAnswer(cursor.getString(6));
             question.setWavPath(cursor.getString(7));
+            question.setQuestType(cursor.getInt(8));
+
             questionsList.add(question);
 
             i++;
             Log.d(TAG, "Question Number is:"+ i+ "  id: "+cursor.getInt(0));
+            Log.d(TAG, "Question Number is:"+ i+ "  id: "+cursor.getInt(8));
         }
 
         db.setTransactionSuccessful();

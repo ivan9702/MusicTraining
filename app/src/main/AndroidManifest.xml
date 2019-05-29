@@ -13,16 +13,16 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-
-        <activity android:name=".MainGameActivity"></activity>
+        <activity android:name=".GameWon"></activity>
+        <activity android:name=".PlayAgain" />
+        <activity android:name=".Time_Up" />
+        <activity android:name=".MainGameActivity" />
         <activity
             android:name=".SettingActivity"
             android:screenOrientation="portrait" />
-
         <activity
             android:name=".AwardStoreActivity"
             android:screenOrientation="portrait" />
-
         <activity
             android:name=".MainActivity"
             android:screenOrientation="portrait">

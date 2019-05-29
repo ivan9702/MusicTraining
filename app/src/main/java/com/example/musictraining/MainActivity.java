@@ -44,7 +44,7 @@ public class MainActivity extends AppCompatActivity {
     static Context context;;
     //Bitmap bitmap;
     //String path;
-    static Boolean threadflag =true;
+    static Boolean threadflag =false;
     private ImageView ivScreenimage, imageView5;
     private TextView  tvStars,tvHalfStar,tvErrors;
     TextView tvOpDate;
@@ -80,6 +80,7 @@ public class MainActivity extends AppCompatActivity {
                 threadflag = false;
                 Intent intent = new Intent(MainActivity.this, MainGameActivity.class);
                 startActivity(intent);
+                finish();
             }
         });
         myHandler = new Handler() {// 创建一个Handler对象
@@ -104,26 +105,30 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
-        threadflag = true;
-        new Thread() {
-            public void run() {
-                int i = 0;
-                while (threadflag) {// 循环
-                    Log.d("Main onCreate", "while loop i="+i);
-                    myHandler.sendEmptyMessage((i++) % 2);// 发送消息
+        if (threadflag != true) {
+            threadflag = true;
+            new Thread() {
+                public void run() {
+                    int i = 0;
+                    while (threadflag) {// 循环
+                        Log.d("Main onCreate", "while loop i=" + i);
+                        myHandler.sendEmptyMessage((i++) % 2);// 发送消息
 //                    System.out.println("handler的ID--->"
 //                            + Thread.currentThread().getId());
 //                    System.out.println("handler的名称--->"
 //                            + Thread.currentThread().getName());
-                    try {
-                        Thread.sleep(800);
-                    } catch (Exception e) {
-                        e.printStackTrace();
+                        try {
+                            Thread.sleep(800);
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                        }
                     }
+
                 }
 
-            };
-        }.start();
+                ;
+            }.start();
+        }
         SharedPreferences sharedata0 = getSharedPreferences("award", MODE_PRIVATE);
 
         Log.d("Main onResume", "stars:"+sharedata0.getInt("stars",0));
@@ -165,6 +170,7 @@ public class MainActivity extends AppCompatActivity {
         threadflag = false;
         Intent it = new Intent(MainActivity.this,AwardStoreActivity.class);
         startActivity(it);
+        finish();
     }
 
     private void askPermissionAndWriteFile() {
@@ -221,17 +227,19 @@ public class MainActivity extends AppCompatActivity {
                 case REQUEST_ID_READ_PERMISSION: {
                     if (grantResults[0] == PackageManager.PERMISSION_GRANTED) {
                         //readFile();
+                        threadflag = false;
                     }
                 }
                 case REQUEST_ID_WRITE_PERMISSION: {
                     if (grantResults[0] == PackageManager.PERMISSION_GRANTED) {
                        // Toast.makeText(getApplicationContext(), "PERMISSION_GRANTED11111", Toast.LENGTH_SHORT).show();
-
+                        threadflag = false;
                     }
                 }
             }
         } else {
             Toast.makeText(getApplicationContext(), "Permission Cancelled!", Toast.LENGTH_SHORT).show();
+            threadflag = false;
         }
     }
 
@@ -364,5 +372,12 @@ public class MainActivity extends AppCompatActivity {
             e.printStackTrace();
         }
 
+    }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        threadflag = false;
+     
     }
 }

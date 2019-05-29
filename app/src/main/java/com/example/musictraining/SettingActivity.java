@@ -63,21 +63,7 @@ public class SettingActivity extends AppCompatActivity {
         etToy = findViewById(R.id.etToy);
         etPark = findViewById(R.id.etPark);
 
-        btnAddBasic = findViewById(R.id.btnAddBasic);
-        btnAddMedium = findViewById(R.id.btnAddMedium);
-        btnAddHigh = findViewById(R.id.btnAddHigh);
 
-        btnSubtrBasic = findViewById(R.id.btnSubtrBasic);
-        btnSubtrMedium = findViewById(R.id.btnSubtrMedium);
-        btnSubtrHigh = findViewById(R.id.btnSubtrHigh);
-
-        btnMultiBasic = findViewById(R.id.btnMultiBasic);
-        btnMultiMedium = findViewById(R.id.btnMultiMedium);
-        btnMultiHigh = findViewById(R.id.btnMultiHigh);
-
-        btnDivBasic = findViewById(R.id.btnDivBasic);
-        btnDivMedium = findViewById(R.id.btnDivMedium);
-        btnDivHigh = findViewById(R.id.btnDivHigh);
 
         btnCommit = findViewById(R.id.btnCommit);
         btnCancel = findViewById(R.id.btnCancel);
@@ -384,95 +370,7 @@ public class SettingActivity extends AppCompatActivity {
                 cancelFunc();
                 break;
 
-            case R.id.btnAddBasic:
-                Log.d("BTN", "AddBasic");
-                AddBasic = 0;
-                len=btnAddBasic.getText().toString().length();
-                Str = btnAddBasic.getText().toString().substring(0, len-1);
-                Log.d("BTN", "AddBasic: "+Str);
-                Str = Str+Integer.toString(AddBasic);
-                btnAddBasic.setText(Str);
-                btnAddBasic.setTextColor(getResources().getColor(R.color.colorAccent));
-                break;
 
-            case R.id.btnAddMedium:
-                Log.d("BTN", "AddMedium");
-                AddMedium = 0;
-                len=btnAddMedium.getText().toString().length();
-                Str = btnAddMedium.getText().toString().substring(0, len-1);
-                Str = Str+Integer.toString(AddMedium);
-                btnAddMedium.setText(Str);
-                btnAddMedium.setTextColor(getResources().getColor(R.color.colorAccent));
-                break;
-
-            case R.id.btnAddHigh:
-                Log.d("BTN", "AddHigh");
-                AddHigh = 0;
-                len=btnAddHigh.getText().toString().length();
-                Str = btnAddHigh.getText().toString().substring(0, len-1);
-                Str = Str+Integer.toString(AddHigh);
-                btnAddHigh.setText(Str);
-                btnAddHigh.setTextColor(getResources().getColor(R.color.colorAccent));
-                break;
-
-            case R.id.btnSubtrBasic:
-                Log.d("BTN", "SubtrBasic");
-                SubtrBasic = 0;
-                len=btnSubtrBasic.getText().toString().length();
-                Str = btnSubtrBasic.getText().toString().substring(0, len-1);
-                Str = Str+Integer.toString(SubtrBasic);
-                btnSubtrBasic.setText(Str);
-                btnSubtrBasic.setTextColor(getResources().getColor(R.color.colorAccent));
-                break;
-
-            case R.id.btnSubtrMedium:
-                Log.d("BTN", "SubtrMedium");
-                SubtrMedium = 0;
-                len=btnSubtrMedium.getText().toString().length();
-                Str = btnSubtrMedium.getText().toString().substring(0, len-1);
-                Str = Str+Integer.toString(SubtrMedium);
-                btnSubtrMedium.setText(Str);
-                btnSubtrMedium.setTextColor(getResources().getColor(R.color.colorAccent));
-                break;
-            case R.id.btnSubtrHigh:
-                Log.d("BTN", "SubtrHigh");
-                SubtrHigh = 0;
-                len=btnSubtrHigh.getText().toString().length();
-                Str = btnSubtrHigh.getText().toString().substring(0, len-1);
-                Str = Str+Integer.toString(SubtrHigh);
-                btnSubtrHigh.setText(Str);
-                btnSubtrHigh.setTextColor(getResources().getColor(R.color.colorAccent));
-                break;
-
-            case R.id.btnMultiBasic:
-                Log.d("BTN", "btnMultiBasic");
-                MultiBasic = 0;
-                len=btnMultiBasic.getText().toString().length();
-                Str = btnMultiBasic.getText().toString().substring(0, len-1);
-                Str = Str+Integer.toString(MultiBasic);
-                btnMultiBasic.setText(Str);
-                btnMultiBasic.setTextColor(getResources().getColor(R.color.colorAccent));
-                break;
-
-            case R.id.btnMultiMedium:
-                Log.d("BTN", "btnMultiMedium");
-                MultiMedium = 0;
-                len=btnMultiMedium.getText().toString().length();
-                Str = btnMultiMedium.getText().toString().substring(0, len-1);
-                Str = Str+Integer.toString(MultiMedium);
-                btnMultiMedium.setText(Str);
-                btnMultiMedium.setTextColor(getResources().getColor(R.color.colorAccent));
-                break;
-
-            case R.id.btnMultiHigh:
-                Log.d("BTN", "btnMultiHigh");
-                MultiHigh = 0;
-                len=btnMultiHigh.getText().toString().length();
-                Str = btnMultiHigh.getText().toString().substring(0, len-1);
-                Str = Str+Integer.toString(MultiHigh);
-                btnMultiHigh.setText(Str);
-                btnMultiHigh.setTextColor(getResources().getColor(R.color.colorAccent));
-                break;
         }
 
 

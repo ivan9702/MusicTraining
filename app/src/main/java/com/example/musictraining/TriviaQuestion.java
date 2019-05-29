@@ -4,6 +4,7 @@ import android.app.Activity;
 
 public class TriviaQuestion extends Activity {
     private int id;
+    private int questType;
     private String question;
     private String opta;
     private String optb;
@@ -12,7 +13,7 @@ public class TriviaQuestion extends Activity {
     private String answer;
     private String wavPath;
 
-    public TriviaQuestion(String q, String oa, String ob, String oc, String od, String ans, String wav) {
+    public TriviaQuestion(String q, String oa, String ob, String oc, String od, String ans, String wav, int qType) {
 
         question = q;
         opta = oa;
@@ -21,6 +22,7 @@ public class TriviaQuestion extends Activity {
         optd = od;
         answer = ans;
         wavPath = wav;
+        questType =qType;
     }
 
     public TriviaQuestion() {
@@ -32,6 +34,7 @@ public class TriviaQuestion extends Activity {
         optd = "";
         answer = "";
         wavPath = "";
+        questType=0;
     }
 
     public String getQuestion() {
@@ -61,6 +64,8 @@ public class TriviaQuestion extends Activity {
     public String getWavPath(){
         return wavPath;
     }
+
+    public int getQuestType(){return questType;}
 
     public void setId(int i) {
         id = i;
@@ -92,5 +97,9 @@ public class TriviaQuestion extends Activity {
 
     public void setWavPath(String wav){
         wavPath = wav;
+    }
+
+    public void setQuestType(int qType) {
+        questType = qType;
     }
 }

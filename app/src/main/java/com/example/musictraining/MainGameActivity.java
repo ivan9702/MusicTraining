@@ -14,6 +14,7 @@ import android.util.Log;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
+import android.widget.Button;
 import android.widget.TextView;
 
 import java.util.Collections;
@@ -24,10 +25,12 @@ import info.hoang8f.widget.FButton;
 import static android.os.SystemClock.sleep;
 
 public class MainGameActivity extends Activity {
+    int QuestType =0;
 
+    static int qIndex=0;
     String TAG = "Main";
     FButton buttonA, buttonB, buttonC, buttonD;
-    TextView questionText, triviaQuizText, timeText, resultText, coinText;
+    TextView questionText, triviaQuizText, timeText, resultText;
     TriviaQuizHelper triviaQuizHelper;
     TriviaQuestion currentQuestion;
     List<TriviaQuestion> list;
@@ -53,7 +56,7 @@ public class MainGameActivity extends Activity {
         triviaQuizText = (TextView) findViewById(R.id.triviaQuizText);
         timeText = (TextView) findViewById(R.id.timeText);
         resultText = (TextView) findViewById(R.id.resultText);
-        coinText = (TextView) findViewById(R.id.coinText);
+
 
         //Setting typefaces for textview and buttons - this will give stylish fonts on textview and button etc
         tb = Typeface.createFromAsset(getAssets(), "fonts/TitilliumWeb-Bold.ttf");
@@ -66,7 +69,7 @@ public class MainGameActivity extends Activity {
         buttonD.setTypeface(tb);
         timeText.setTypeface(tb);
         resultText.setTypeface(sb);
-        coinText.setTypeface(tb);
+      //  coinText.setTypeface(tb);
 
         //Our database helper class
         triviaQuizHelper = new TriviaQuizHelper(this);
@@ -112,7 +115,9 @@ public class MainGameActivity extends Activity {
 
                     //Since user is out of time he won't be able to click any buttons
                     //therefore we will disable all four options buttons using this method
+
                     disableButton();
+                    showTheAnswer();
                 }
             }
 
@@ -124,7 +129,7 @@ public class MainGameActivity extends Activity {
         }.start();
 
 
-
+        qIndex=0;
         //This method will set the que and four options
         updateQueAndOptions();
 
@@ -133,6 +138,9 @@ public class MainGameActivity extends Activity {
 
 
     public void updateQueAndOptions() {
+
+        QuestType = currentQuestion.getQuestType();
+        Log.d(TAG, "QuestType=" + QuestType);
 
         new Thread(new Runnable() {
 
@@ -144,14 +152,188 @@ public class MainGameActivity extends Activity {
             }
         }).start();
 
+
+        int id=0;
         //This method will setText for que and options
-        questionText.setText(currentQuestion.getQuestion());
+        //questionText.setText(currentQuestion.getQuestion());
+        questionText.setText(String.valueOf(qIndex)+ ". " +currentQuestion.getQuestion());
+        qIndex++;
+//********** NOTE NAME QUESTION******************//
+    if(QuestType == 1) {
+        String letter = "";
+        FButton btn = null;
+        for (int i = 1; i <= 4; i++) {
+            if (i == 1) {letter = currentQuestion.getOptA(); btn = buttonA;}
+            if (i == 2) {letter = currentQuestion.getOptB(); btn = buttonB;}
+            if (i == 3) {letter = currentQuestion.getOptC(); btn = buttonC;}
+            if (i == 4) {letter = currentQuestion.getOptD(); btn = buttonD;}
+
+            Log.d(TAG, "Letter=" + letter);
+            switch (letter) {
+
+                case "A":
+                    btn.setBackgroundResource(R.drawable.la);
+                    break;
+                case "B":
+                    btn.setBackgroundResource(R.drawable.si);
+                    break;
+                case "C":
+                    btn.setBackgroundResource(R.drawable.doo);
+                    break;
+                case "D":
+                    btn.setBackgroundResource(R.drawable.re);
+                    break;
+                case "E":
+                    btn.setBackgroundResource(R.drawable.mi);
+                    break;
+                case "F":
+                    btn.setBackgroundResource(R.drawable.fa);
+                    break;
+                case "G":
+                    btn.setBackgroundResource(R.drawable.sol);
+                    break;
+            }
+        }
+
+    }//********** CLEFS QUESTION******************//
+       else if(QuestType == 2) {
+            String letter = "";
+            FButton btn = null;
+            for (int i = 1; i <= 4; i++) {
+                if (i == 1) {letter = currentQuestion.getOptA(); btn = buttonA;}
+                if (i == 2) {letter = currentQuestion.getOptB(); btn = buttonB;}
+                if (i == 3) {letter = currentQuestion.getOptC(); btn = buttonC;}
+                if (i == 4) {letter = currentQuestion.getOptD(); btn = buttonD;}
+
+                Log.d(TAG, "Letter=" + letter);
+                switch (letter) {
+
+                    case "B":
+                        btn.setBackgroundResource(R.drawable.bass);
+                        break;
+                    case "T":
+                        btn.setBackgroundResource(R.drawable.treble);
+                        break;
+                    case "S":
+                        btn.setBackgroundResource(R.drawable.sharp);
+                        break;
+                    case "F":
+                        btn.setBackgroundResource(R.drawable.flat);
+                        break;
+                    case "C":
+                        btn.setBackgroundResource(R.drawable.crescendo);
+                        break;
+                    case "D":
+                        btn.setBackgroundResource(R.drawable.decrescendo);
+                        break;
+                    case "R":
+                        btn.setBackgroundResource(R.drawable.repeat);
+                        break;
+                    case "L":
+                        btn.setBackgroundResource(R.drawable.slur);
+                        break;
+                    case "I":
+                        btn.setBackgroundResource(R.drawable.tie);
+                        break;
+
+                }
+            }
+
+        }//********** Musical Notation QUESTION (Location)******************//
+    else if(QuestType == 3) {
+        String letter = "";
+        FButton btn = null;
+        for (int i = 1; i <= 4; i++) {
+            if (i == 1) {letter = currentQuestion.getOptA(); btn = buttonA;}
+            if (i == 2) {letter = currentQuestion.getOptB(); btn = buttonB;}
+            if (i == 3) {letter = currentQuestion.getOptC(); btn = buttonC;}
+            if (i == 4) {letter = currentQuestion.getOptD(); btn = buttonD;}
+
+            Log.d(TAG, "Letter=" + letter);
+            switch (letter) {
+
+                case "A":
+                    btn.setBackgroundResource(R.drawable.la_locat);
+                    break;
+                case "B":
+                    btn.setBackgroundResource(R.drawable.si_locat);
+                    break;
+                case "C":
+                    btn.setBackgroundResource(R.drawable.do_locat);
+                    break;
+                case "D":
+                    btn.setBackgroundResource(R.drawable.re_locat);
+                    break;
+                case "E":
+                    btn.setBackgroundResource(R.drawable.mi_locat);
+                    break;
+                case "F":
+                    btn.setBackgroundResource(R.drawable.fa_locat);
+                    break;
+                case "G":
+                    btn.setBackgroundResource(R.drawable.sol_locat);
+                    break;
+            }
+        }
+
+    }
+    //********** //musical Notation******************//
+    else if(QuestType == 4) {
+        String letter = "";
+        FButton btn = null;
+        for (int i = 1; i <= 4; i++) {
+            if (i == 1) {letter = currentQuestion.getOptA(); btn = buttonA;}
+            if (i == 2) {letter = currentQuestion.getOptB(); btn = buttonB;}
+            if (i == 3) {letter = currentQuestion.getOptC(); btn = buttonC;}
+            if (i == 4) {letter = currentQuestion.getOptD(); btn = buttonD;}
+
+            Log.d(TAG, "Letter=" + letter);
+            switch (letter) {
+
+                case "S":
+                    btn.setBackgroundResource(R.drawable.semibreve);
+                    break;
+                case "M":
+                    btn.setBackgroundResource(R.drawable.minim);
+                    break;
+                case "C":
+                    btn.setBackgroundResource(R.drawable.crotchet);
+                    break;
+                case "Q":
+                    btn.setBackgroundResource(R.drawable.quaver);
+                    break;
+                case "D":
+                    btn.setBackgroundResource(R.drawable.demiquaver);
+                    break;
+                case "W":
+                    btn.setBackgroundResource(R.drawable.whole_r);
+                    break;
+                case "H":
+                    btn.setBackgroundResource(R.drawable.half_r);
+                    break;
+                case "U":
+                    btn.setBackgroundResource(R.drawable.quarter_r);
+                    break;
+                case "E":
+                    btn.setBackgroundResource(R.drawable.eighth_r);
+                    break;
+                case "I":
+                    btn.setBackgroundResource(R.drawable.sixtheenth_r);
+                    break;
+            }
+        }
+
+    }
+    else {
+
+
+
         buttonA.setText(currentQuestion.getOptA());
         buttonB.setText(currentQuestion.getOptB());
         buttonC.setText(currentQuestion.getOptC());
         buttonD.setText(currentQuestion.getOptD());
 
-
+    }
         timeValue = 20;
 
         //Now since the user has ans correct just reset timer back for another que- by cancel and start
@@ -159,17 +341,17 @@ public class MainGameActivity extends Activity {
         countDownTimer.start();
 
         //set the value of coin text
-        coinText.setText(String.valueOf(coinValue));
+       // coinText.setText(String.valueOf(coinValue));
         //Now since user has ans correct increment the coinvalue
         coinValue++;
 
     }
-
+////  get   >>  image.getDrawable()
     //Onclick listener for first button
     public void buttonA(View view) {
         //compare the option with the ans if yes then make button color green
         if (currentQuestion.getOptA().equals(currentQuestion.getAnswer())) {
-            buttonA.setButtonColor(ContextCompat.getColor(getApplicationContext(),R.color.lightGreen));
+            //buttonA.setButtonColor(ContextCompat.getColor(getApplicationContext(),R.color.lightGreen));
 
 
             Log.d(TAG, "qid: "+ qid +"   list.size:"+list.size());
@@ -201,7 +383,7 @@ public class MainGameActivity extends Activity {
     //Onclick listener for sec button
     public void buttonB(View view) {
         if (currentQuestion.getOptB().equals(currentQuestion.getAnswer())) {
-            buttonB.setButtonColor(ContextCompat.getColor(getApplicationContext(),R.color.lightGreen));
+           // buttonB.setButtonColor(ContextCompat.getColor(getApplicationContext(),R.color.lightGreen));
             Log.d(TAG, "qid: "+ qid +"   list.size:"+list.size());
             if (qid < list.size() - 1) {
                 disableButton();
@@ -217,7 +399,7 @@ public class MainGameActivity extends Activity {
     //Onclick listener for third button
     public void buttonC(View view) {
         if (currentQuestion.getOptC().equals(currentQuestion.getAnswer())) {
-            buttonC.setButtonColor(ContextCompat.getColor(getApplicationContext(),R.color.lightGreen));
+           // buttonC.setButtonColor(ContextCompat.getColor(getApplicationContext(),R.color.lightGreen));
             Log.d(TAG, "qid: "+ qid +"   list.size:"+list.size());
             if (qid < list.size() - 1) {
                 disableButton();
@@ -234,7 +416,7 @@ public class MainGameActivity extends Activity {
     //Onclick listener for fourth button
     public void buttonD(View view) {
         if (currentQuestion.getOptD().equals(currentQuestion.getAnswer())) {
-            buttonD.setButtonColor(ContextCompat.getColor(getApplicationContext(),R.color.lightGreen));
+            //buttonD.setButtonColor(ContextCompat.getColor(getApplicationContext(),R.color.lightGreen));
             Log.d(TAG, "qid: "+ qid +"   list.size:"+list.size());
             if (qid < list.size() - 1) {
                 disableButton();
@@ -250,25 +432,26 @@ public class MainGameActivity extends Activity {
 
     //This method will navigate from current activity to GameWon
     public void gameWon() {
-//        Intent intent = new Intent(this, GameWon.class);
-//        startActivity(intent);
-//        finish();
+        Intent intent = new Intent(this, GameWon.class);
+        startActivity(intent);
+        finish();
     }
 
     //This method is called when user ans is wrong
     //this method will navigate user to the activity PlayAgain
     public void gameLostPlayAgain() {
-//        Intent intent = new Intent(this, PlayAgain.class);
-//        startActivity(intent);
-//        finish();
+        Intent intent = new Intent(this, PlayAgain.class);
+        startActivity(intent);
+        finish();
     }
 
     //This method is called when time is up
     //this method will navigate user to the activity Time_Up
     public void timeUp() {
-//        Intent intent = new Intent(this, Time_Up.class);
-//        startActivity(intent);
-//        finish();
+        sleep(1200);
+      Intent intent = new Intent(this, Time_Up.class);
+        startActivity(intent);
+        finish();
     }
 
     //If user press home button and come in the game from memory then this
@@ -294,12 +477,12 @@ public class MainGameActivity extends Activity {
     }
 
     //On BackPressed
-//    @Override
-//    public void onBackPressed() {
-////        Intent intent = new Intent(this, HomeScreen.class);
-////        startActivity(intent);
-////        finish();
-//    }
+    @Override
+    public void onBackPressed() {
+        Intent intent = new Intent(this, MainActivity.class);
+        startActivity(intent);
+        finish();
+    }
 
 
     //This dialog is show to the user after he ans correct
@@ -335,10 +518,13 @@ public class MainGameActivity extends Activity {
                 qid++;
                 //get the que and 4 option and store in the currentQuestion
                 currentQuestion = list.get(qid);
-                //Now this method will set the new que and 4 options
-                updateQueAndOptions();
+
                 //reset the color of buttons back to white
                 resetColor();
+
+                //Now this method will set the new que and 4 options
+                updateQueAndOptions();
+
                 //Enable button - remember we had disable them when user ans was correct in there particular button methods
                 enableButton();
             }
@@ -348,10 +534,14 @@ public class MainGameActivity extends Activity {
 
     //This method will make button color white again since our one button color was turned green
     public void resetColor() {
-        buttonA.setButtonColor(ContextCompat.getColor(getApplicationContext(),R.color.white));
-        buttonB.setButtonColor(ContextCompat.getColor(getApplicationContext(),R.color.white));
-        buttonC.setButtonColor(ContextCompat.getColor(getApplicationContext(),R.color.white));
-        buttonD.setButtonColor(ContextCompat.getColor(getApplicationContext(),R.color.white));
+//        buttonA.setButtonColor(ContextCompat.getColor(getApplicationContext(),R.color.white));
+//        buttonB.setButtonColor(ContextCompat.getColor(getApplicationContext(),R.color.white));
+//        buttonC.setButtonColor(ContextCompat.getColor(getApplicationContext(),R.color.white));
+//        buttonD.setButtonColor(ContextCompat.getColor(getApplicationContext(),R.color.white));
+        buttonA.setButtonColor(ContextCompat.getColor(getApplicationContext(),R.color.fbutton_default_color));
+        buttonB.setButtonColor(ContextCompat.getColor(getApplicationContext(),R.color.fbutton_default_color));
+        buttonC.setButtonColor(ContextCompat.getColor(getApplicationContext(),R.color.fbutton_default_color));
+        buttonD.setButtonColor(ContextCompat.getColor(getApplicationContext(),R.color.fbutton_default_color));
     }
 
     //This method will disable all the option button
@@ -370,5 +560,22 @@ public class MainGameActivity extends Activity {
         buttonD.setEnabled(true);
     }
 
+    public void showTheAnswer()
+    {
+        Log.d(TAG, "the answer is " + currentQuestion.getAnswer());
 
+//        if(!currentQuestion.getOptA().equals(currentQuestion.getAnswer())) {buttonA.setBackgroundResource(0); buttonA.refresh();}
+//        if(!currentQuestion.getOptB().equals(currentQuestion.getAnswer())) {buttonB.setBackgroundResource(0); buttonB.refresh();}
+//        if(!currentQuestion.getOptC().equals(currentQuestion.getAnswer())) {buttonC.setBackgroundResource(0); buttonC.refresh();}
+//        if(!currentQuestion.getOptD().equals(currentQuestion.getAnswer())) {buttonD.setBackgroundResource(0); buttonD.refresh();}
+        if(!currentQuestion.getOptA().equals(currentQuestion.getAnswer()))
+            buttonA.setButtonColor(ContextCompat.getColor(getApplicationContext(),R.color.fbutton_default_color));
+        if(!currentQuestion.getOptB().equals(currentQuestion.getAnswer()))
+            buttonB.setButtonColor(ContextCompat.getColor(getApplicationContext(),R.color.fbutton_default_color));
+        if(!currentQuestion.getOptC().equals(currentQuestion.getAnswer()))
+            buttonC.setButtonColor(ContextCompat.getColor(getApplicationContext(),R.color.fbutton_default_color));
+        if(!currentQuestion.getOptD().equals(currentQuestion.getAnswer()))
+            buttonD.setButtonColor(ContextCompat.getColor(getApplicationContext(),R.color.fbutton_default_color));
+
+    }
 }
