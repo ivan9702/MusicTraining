@@ -3,6 +3,7 @@ package com.example.musictraining;
 import android.app.Activity;
 import android.app.Dialog;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.graphics.Typeface;
 import android.graphics.drawable.ColorDrawable;
@@ -30,7 +31,7 @@ public class MainGameActivity extends Activity {
     static int qIndex=0;
     String TAG = "Main";
     FButton buttonA, buttonB, buttonC, buttonD;
-    TextView questionText, triviaQuizText, timeText, resultText;
+    TextView questionText, triviaQuizText, timeText, resultText,tvStars;
     TriviaQuizHelper triviaQuizHelper;
     TriviaQuestion currentQuestion;
     List<TriviaQuestion> list;
@@ -39,6 +40,8 @@ public class MainGameActivity extends Activity {
     int coinValue = 0;
     CountDownTimer countDownTimer;
     Typeface tb, sb;
+    SharedPreferences sharedata;
+    SharedPreferences.Editor editor;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -57,6 +60,7 @@ public class MainGameActivity extends Activity {
         timeText = (TextView) findViewById(R.id.timeText);
         resultText = (TextView) findViewById(R.id.resultText);
 
+        tvStars = (TextView)findViewById(R.id.tvStars);
 
         //Setting typefaces for textview and buttons - this will give stylish fonts on textview and button etc
         tb = Typeface.createFromAsset(getAssets(), "fonts/TitilliumWeb-Bold.ttf");
@@ -343,7 +347,7 @@ public class MainGameActivity extends Activity {
         //set the value of coin text
        // coinText.setText(String.valueOf(coinValue));
         //Now since user has ans correct increment the coinvalue
-        coinValue++;
+        //coinValue++;
 
     }
 ////  get   >>  image.getDrawable()
@@ -484,9 +488,26 @@ public class MainGameActivity extends Activity {
         finish();
     }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+        sharedata = getSharedPreferences("award", MODE_PRIVATE);
+        editor = sharedata.edit();//获取Editor
+
+        Log.d("Main onResume", "stars:"+sharedata.getInt("stars",0));
+        Log.d("Main onResume", "date:"+sharedata.getString("date", "0"));
+        coinValue = sharedata.getInt("stars",0);
+        tvStars.setText(String.valueOf(sharedata.getInt("stars",0)));
+    }
 
     //This dialog is show to the user after he ans correct
     public void correctDialog() {
+        coinValue++;
+        editor.putInt("stars",coinValue);
+        tvStars.setText(String.valueOf(coinValue));
+
+        editor.commit();
+
         final Dialog dialogCorrect = new Dialog(MainGameActivity.this);
         dialogCorrect.requestWindowFeature(Window.FEATURE_NO_TITLE);
         if (dialogCorrect.getWindow() != null) {
@@ -577,5 +598,9 @@ public class MainGameActivity extends Activity {
         if(!currentQuestion.getOptD().equals(currentQuestion.getAnswer()))
             buttonD.setButtonColor(ContextCompat.getColor(getApplicationContext(),R.color.fbutton_default_color));
 
+    }
+    public void gotoStore(View view) {
+        Intent it = new Intent(this,AwardStoreActivity.class);
+        startActivity(it);
     }
 }

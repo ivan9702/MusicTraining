@@ -69,33 +69,33 @@ public class TriviaQuizHelper extends SQLiteOpenHelper {
     void allQuestion() {
         ArrayList<TriviaQuestion> arraylist = new ArrayList<>();
         // Note Name
-//        arraylist.add(new TriviaQuestion("What's the Do's Note Name ?", "D", "C", "E", "B", "C", "name1.wav",1));
-//        arraylist.add(new TriviaQuestion("What's the Re's Note Name ?", "A", "B", "D", "G", "D", "name2.wav",1));
-//        arraylist.add(new TriviaQuestion("What's the Mi's Note Name ?", "G", "E", "F", "A", "E", "name3.wav",1));
-//        arraylist.add(new TriviaQuestion("What's the Fa's Note Name ?", "F", "D", "A", "B", "F", "name4.wav",1));
-//        arraylist.add(new TriviaQuestion("What's the Sol's Note Name ?", "B", "C", "D", "G", "G", "name5.wav",1));
-//        arraylist.add(new TriviaQuestion("What's the La's Note Name ?", "A", "E", "F", "C", "A", "name6.wav",1));
-//        arraylist.add(new TriviaQuestion("What's the Si's Note Name ?", "F", "D", "B", "G", "B", "name7.wav",1));
-//
-//        //Clef
-//        arraylist.add(new TriviaQuestion("What's the treble clef ?", "B", "C", "D", "T", "T", "clef1.wav",2));
-//        arraylist.add(new TriviaQuestion("What's the Bass clef ?", "T", "I", "R", "B", "B", "clef2.wav",2));
-//        arraylist.add(new TriviaQuestion("What's the Sharp signature ?", "S", "T", "I", "F", "S", "clef3.wav",2));
-//        arraylist.add(new TriviaQuestion("What's the Flat signature ?", "F", "L", "S", "T", "F", "clef4.wav",2));
-//        arraylist.add(new TriviaQuestion("What's the crescendo signature ?", "C", "T", "L", "F", "C", "clef5.wav",2));
-//        arraylist.add(new TriviaQuestion("What's the decrescendo signature ?", "F", "B", "S", "D", "D", "clef6.wav",2));
-//        arraylist.add(new TriviaQuestion("What's the slur signature ?", "C", "T", "L", "F", "L", "clef7.wav",2));
-//        arraylist.add(new TriviaQuestion("What's the tie signature ?", "F", "B", "S", "I", "I", "clef8.wav",2));
-//        arraylist.add(new TriviaQuestion("What's the repeat signature ?", "F", "R", "S", "I", "R", "clef8.wav",2));
-//
-//        //musical Notation
-//        arraylist.add(new TriviaQuestion("What's the Do's location ?","F", "D","B", "C", "C",  "staff1.wav",3));
-//        arraylist.add(new TriviaQuestion("What's the Re's location ?","G","E","D", "A", "D", "staff2.wav",3));
-//        arraylist.add(new TriviaQuestion("What's the Mi's location ?","A","B","D", "E", "E", "staff3.wav",3));
-//        arraylist.add(new TriviaQuestion("What's the Fa's location ?","B","F","D", "G", "F","staff4.wav",3));
-//        arraylist.add(new TriviaQuestion("What's the Sol's location ?","F","G","A", "B", "G",  "staff5.wav",3));
-//        arraylist.add(new TriviaQuestion("What's the La's location ?","D","A","E", "B", "A",   "staff6.wav",3));
-//        arraylist.add(new TriviaQuestion("What's the Si's location ?","A","E","F", "B", "B","staff7.wav",3));
+        arraylist.add(new TriviaQuestion("What's the Do's Note Name ?", "D", "C", "E", "B", "C", "name1.wav",1));
+        arraylist.add(new TriviaQuestion("What's the Re's Note Name ?", "A", "B", "D", "G", "D", "name2.wav",1));
+        arraylist.add(new TriviaQuestion("What's the Mi's Note Name ?", "G", "E", "F", "A", "E", "name3.wav",1));
+        arraylist.add(new TriviaQuestion("What's the Fa's Note Name ?", "F", "D", "A", "B", "F", "name4.wav",1));
+        arraylist.add(new TriviaQuestion("What's the Sol's Note Name ?", "B", "C", "D", "G", "G", "name5.wav",1));
+        arraylist.add(new TriviaQuestion("What's the La's Note Name ?", "A", "E", "F", "C", "A", "name6.wav",1));
+        arraylist.add(new TriviaQuestion("What's the Si's Note Name ?", "F", "D", "B", "G", "B", "name7.wav",1));
+
+        //Clef
+        arraylist.add(new TriviaQuestion("What's the treble clef ?", "B", "C", "D", "T", "T", "clef1.wav",2));
+        arraylist.add(new TriviaQuestion("What's the Bass clef ?", "T", "I", "R", "B", "B", "clef2.wav",2));
+        arraylist.add(new TriviaQuestion("What's the Sharp signature ?", "S", "T", "I", "F", "S", "clef3.wav",2));
+        arraylist.add(new TriviaQuestion("What's the Flat signature ?", "F", "L", "S", "T", "F", "clef4.wav",2));
+        arraylist.add(new TriviaQuestion("What's the crescendo signature ?", "C", "T", "L", "F", "C", "clef5.wav",2));
+        arraylist.add(new TriviaQuestion("What's the decrescendo signature ?", "F", "B", "S", "D", "D", "clef6.wav",2));
+        arraylist.add(new TriviaQuestion("What's the slur signature ?", "C", "T", "L", "F", "L", "clef7.wav",2));
+        arraylist.add(new TriviaQuestion("What's the tie signature ?", "L", "B", "S", "I", "I", "clef8.wav",2));
+        arraylist.add(new TriviaQuestion("What's the repeat signature ?", "F", "R", "S", "I", "R", "clef8.wav",2));
+
+        //musical Notation
+        arraylist.add(new TriviaQuestion("What's the Do's location ?","F", "D","B", "C", "C",  "staff1.wav",3));
+        arraylist.add(new TriviaQuestion("What's the Re's location ?","G","E","D", "A", "D", "staff2.wav",3));
+        arraylist.add(new TriviaQuestion("What's the Mi's location ?","A","B","D", "E", "E", "staff3.wav",3));
+        arraylist.add(new TriviaQuestion("What's the Fa's location ?","B","F","D", "G", "F","staff4.wav",3));
+        arraylist.add(new TriviaQuestion("What's the Sol's location ?","F","G","A", "B", "G",  "staff5.wav",3));
+        arraylist.add(new TriviaQuestion("What's the La's location ?","D","A","E", "B", "A",   "staff6.wav",3));
+        arraylist.add(new TriviaQuestion("What's the Si's location ?","A","E","F", "B", "B","staff7.wav",3));
 
         //musical Notation
         arraylist.add(new TriviaQuestion("What's the whole note ?", "S", "M", "D", "Q", "S", "note1.wav",4));

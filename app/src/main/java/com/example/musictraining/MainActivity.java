@@ -44,10 +44,14 @@ public class MainActivity extends AppCompatActivity {
     static Context context;;
     //Bitmap bitmap;
     //String path;
+
+    SharedPreferences sharedata;
+    SharedPreferences.Editor editor;
+
     static Boolean threadflag =false;
     private ImageView ivScreenimage, imageView5;
-    private TextView  tvStars,tvHalfStar,tvErrors;
-    TextView tvOpDate;
+    private TextView  tvHalfStar,tvErrors;
+    TextView tvOpDate,tvStars;
     private String sharePath="no";
     Bitmap mbitmap;
     Handler  myHandler;
@@ -57,7 +61,7 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        SharedPreferences sharedata0 = getSharedPreferences("award", MODE_PRIVATE);
+         sharedata = getSharedPreferences("award", MODE_PRIVATE);
         //SharedPreferences.Editor sharedata = getSharedPreferences("award", 0).edit();
 
             MainActivity.context = getApplicationContext();
@@ -70,7 +74,7 @@ public class MainActivity extends AppCompatActivity {
         imageView5 = findViewById(R.id.imageView5);
         tvOpDate = findViewById(R.id.tvOpDate);
 
-        Log.d("Main onCreate", "stars:"+sharedata0.getInt("stars",0));
+        Log.d("Main onCreate", "stars:"+sharedata.getInt("stars",0));
         askPermissionAndWriteFile();
         //askPermissionAndReadFile();
 
@@ -97,7 +101,7 @@ public class MainActivity extends AppCompatActivity {
             }
         };
 
-        tvOpDate.setText("上一次測試日期為：　"+sharedata0.getString("date", "0"));
+        tvOpDate.setText("上一次測試日期為：　"+sharedata.getString("date", "0"));
 
 
     }
@@ -129,40 +133,14 @@ public class MainActivity extends AppCompatActivity {
                 ;
             }.start();
         }
-        SharedPreferences sharedata0 = getSharedPreferences("award", MODE_PRIVATE);
+        sharedata = getSharedPreferences("award", MODE_PRIVATE);
+        editor = sharedata.edit();//获取Editor
 
-        Log.d("Main onResume", "stars:"+sharedata0.getInt("stars",0));
-        Log.d("Main onResume", "starHalf:"+sharedata0.getBoolean("starHalf",false));
-        Log.d("Main onResume", "errorCount:"+sharedata0.getInt("errorCount",0));
+        Log.d("Main onResume", "stars:"+sharedata.getInt("stars",0));
+        Log.d("Main onResume", "date:"+sharedata.getString("date", "0"));
 
-        Log.d("Main onResume", "addBasic:"+sharedata0.getInt("addBasic",0));
-        Log.d("Main onResume", "addMedium:"+sharedata0.getInt("addMedium",0));
-        Log.d("Main onResume", "addHigh:"+sharedata0.getInt("addHigh",0));
-
-        Log.d("Main onResume", "subtractionBasic:"+sharedata0.getInt("subtractionBasic",0));
-        Log.d("Main onResume", "subtractionMedium:"+sharedata0.getInt("subtractionMedium",0));
-        Log.d("Main onResume", "subtractionHigh:"+sharedata0.getInt("subtractionHigh",0));
-
-        Log.d("Main onResume", "multiBasic:"+sharedata0.getInt("MultiBasic",0));
-        Log.d("Main onResume", "multiMedium:"+sharedata0.getInt("multiMedium",0));
-        Log.d("Main onResume", "multiHigh:"+sharedata0.getInt("multiHigh",0));
-
-        Log.d("Main onResume", "date:"+sharedata0.getString("date", "0"));
-
-        Log.d("Main onResume", "errImgNum:"+sharedata0.getInt("errImgNum",0));
-
-        if(sharedata0.getBoolean("starHalf",false) == false)
-            tvHalfStar.setText(" x 0");
-        else
-            tvHalfStar.setText(" x 1");
-
-        tvStars.setText(" x "+sharedata0.getInt("stars",0));
-
-        tvErrors.setText(" x "+sharedata0.getInt("errorCount",0)+"/3");
-
-        tvOpDate.setText("上一次測試日期為：　"+sharedata0.getString("date", "0"));
-
-
+        tvStars.setText(String.valueOf(sharedata.getInt("stars",0)));
+        tvOpDate.setText("上一次測試日期為：　"+sharedata.getString("date", "0"));
     }
 
     public void gotoStore(View view) {

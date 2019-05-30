@@ -22,10 +22,10 @@
 
             <ImageView
                 android:id="@+id/coinImage"
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
+                android:layout_width="80dp"
+                android:layout_height="wrap_content"
                 android:layout_alignParentStart="true"
-                android:layout_marginStart="0dp"
+                android:layout_marginStart="-16dp"
                 android:src="@drawable/coin" />
 
 
@@ -84,6 +84,40 @@
             android:text=""
             android:textColor="@color/green"
             android:textSize="30sp" />
+
+        <ImageView
+            android:id="@+id/imageView"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_marginRight="20dp"
+
+            android:layout_gravity="right"
+            android:onClick="gotoStore"
+            android:src="@drawable/scoretest" />
+
+
+
+                <ImageView
+                    android:id="@+id/imageView2"
+                    android:layout_width="80dp"
+                    android:layout_height="80dp"
+
+                    android:layout_gravity="right"
+                    android:src="@drawable/star" />
+
+        <TextView
+            android:id="@+id/tvStars"
+            android:layout_width="80dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="right"
+            android:gravity="center"
+            android:text="0"
+            android:textColor="@color/colorPrimaryDark"
+            android:textSize="24sp"
+            android:textStyle="bold" />
+
+
+
     </LinearLayout>
 
 

@@ -50,8 +50,7 @@ public class SettingActivity extends AppCompatActivity {
         editor = sharedata.edit();//获取Editor
 
         Log.d("Setting onCreate", "stars:"+sharedata.getInt("stars",0));
-        Log.d("Setting onCreate", "starHalf:"+sharedata.getBoolean("starHalf",false));
-        Log.d("Setting onCreate", "errorCount:"+sharedata.getInt("errorCount",0));
+
 
         tvTotalAward = findViewById(R.id.tvTotalAward);
         tvTotalHalfAward = findViewById(R.id.tvTotalHalfAward);
@@ -246,20 +245,7 @@ public class SettingActivity extends AppCompatActivity {
         editor = sharedata.edit();//获取Editor
 
         Log.d("Setting onResume", "stars:"+sharedata.getInt("stars",0));
-        Log.d("Setting onResume", "starHalf:"+sharedata.getBoolean("starHalf",false));
-        Log.d("Setting onResume", "errorCount:"+sharedata.getInt("errorCount",0));
 
-        Log.d("Setting onResume", "addBasic:"+sharedata.getInt("addBasic",0));
-        Log.d("Setting onResume", "addMedium:"+sharedata.getInt("addMedium",0));
-        Log.d("Setting onResume", "addHigh:"+sharedata.getInt("addHigh",0));
-
-        Log.d("Setting onResume", "subtractionBasic:"+sharedata.getInt("subtractionBasic",0));
-        Log.d("Setting onResume", "subtractionMedium:"+sharedata.getInt("subtractionMedium",0));
-        Log.d("Setting onResume", "subtractionHigh:"+sharedata.getInt("subtractionHigh",0));
-
-        Log.d("Setting onResume", "multiBasic:"+sharedata.getInt("MultiBasic",0));
-        Log.d("Setting onResume", "multiMedium:"+sharedata.getInt("multiMedium",0));
-        Log.d("Setting onResume", "multiHigh:"+sharedata.getInt("multiHigh",0));
 
         Log.d("Setting onResume", "date:"+sharedata.getString("date", "0"));
 
@@ -277,17 +263,7 @@ public class SettingActivity extends AppCompatActivity {
 //              Get Data from SharePreference
 //==========================================================================================================
 
-        AddBasic = Integer.valueOf(sharedata.getInt("addBasic",0));
-        AddMedium = Integer.valueOf(sharedata.getInt("addMedium",0));
-        AddHigh = Integer.valueOf(sharedata.getInt("addHigh",0));
 
-        SubtrBasic = Integer.valueOf(sharedata.getInt("subtractionBasic",0));
-        SubtrMedium = Integer.valueOf(sharedata.getInt("subtractionMedium",0));
-        SubtrHigh = Integer.valueOf(sharedata.getInt("subtractionHigh",0));
-
-        MultiBasic = Integer.valueOf(sharedata.getInt("MultiBasic",0));
-        MultiMedium = Integer.valueOf(sharedata.getInt("multiMedium",0));
-        MultiHigh = Integer.valueOf(sharedata.getInt("multiHigh",0));
 
 
         Cars= sharedata.getInt("CarNum",0);
@@ -380,18 +356,7 @@ public class SettingActivity extends AppCompatActivity {
         sharedata = getSharedPreferences("award", MODE_PRIVATE);
         editor = sharedata.edit();//获取Editor
 
-        //
-        editor.putInt("addBasic", AddBasic);
-        editor.putInt("addMedium", AddMedium);
-        editor.putInt("addHigh", AddHigh);
 
-        editor.putInt("subtractionBasic", SubtrBasic);
-        editor.putInt("subtractionMedium", SubtrMedium);
-        editor.putInt("subtractionHigh", SubtrHigh);
-
-        editor.putInt("MultiBasic", MultiBasic);
-        editor.putInt("multiMedium", MultiMedium);
-        editor.putInt("multiHigh", MultiHigh);
 
 
         Cars = Integer.valueOf(etCars.getText().toString());
