@@ -11,6 +11,7 @@ import android.os.CountDownTimer;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.text.format.DateFormat;
 import android.util.Log;
 import android.view.View;
 import android.view.Window;
@@ -18,6 +19,7 @@ import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.TextView;
 
+import java.util.Calendar;
 import java.util.Collections;
 import java.util.List;
 
@@ -42,7 +44,8 @@ public class MainGameActivity extends Activity {
     Typeface tb, sb;
     SharedPreferences sharedata;
     SharedPreferences.Editor editor;
-
+    Calendar mCal;
+    CharSequence date;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -74,6 +77,9 @@ public class MainGameActivity extends Activity {
         timeText.setTypeface(tb);
         resultText.setTypeface(sb);
       //  coinText.setTypeface(tb);
+
+        mCal = Calendar.getInstance();
+        date =  DateFormat.format("yyyyMMdd ", mCal.getTime());
 
         //Our database helper class
         triviaQuizHelper = new TriviaQuizHelper(this);
@@ -436,6 +442,9 @@ public class MainGameActivity extends Activity {
 
     //This method will navigate from current activity to GameWon
     public void gameWon() {
+        editor.putString("date",date.toString());
+
+        editor.commit();
         Intent intent = new Intent(this, GameWon.class);
         startActivity(intent);
         finish();
@@ -444,6 +453,9 @@ public class MainGameActivity extends Activity {
     //This method is called when user ans is wrong
     //this method will navigate user to the activity PlayAgain
     public void gameLostPlayAgain() {
+        editor.putString("date",date.toString());
+
+        editor.commit();
         Intent intent = new Intent(this, PlayAgain.class);
         startActivity(intent);
         finish();
@@ -505,6 +517,7 @@ public class MainGameActivity extends Activity {
         coinValue++;
         editor.putInt("stars",coinValue);
         tvStars.setText(String.valueOf(coinValue));
+        editor.putString("date",date.toString());
 
         editor.commit();
 
@@ -602,5 +615,10 @@ public class MainGameActivity extends Activity {
     public void gotoStore(View view) {
         Intent it = new Intent(this,AwardStoreActivity.class);
         startActivity(it);
+    }
+
+    public void clockStop(View view) {
+        onPause();
+
     }
 }
