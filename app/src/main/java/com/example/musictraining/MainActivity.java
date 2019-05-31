@@ -37,7 +37,7 @@ import java.util.Date;
 import static android.os.SystemClock.sleep;
 
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends Activity {
 
     private static final int REQUEST_ID_READ_PERMISSION = 100;
     private static final int REQUEST_ID_WRITE_PERMISSION = 200;
