@@ -82,11 +82,11 @@ public class TriviaQuizHelper extends SQLiteOpenHelper {
         arraylist.add(new TriviaQuestion("What's the Bass clef ?", "T", "I", "R", "B", "B", "clef2.wav",2));
         arraylist.add(new TriviaQuestion("What's the Sharp signature ?", "S", "T", "I", "F", "S", "clef3.wav",2));
         arraylist.add(new TriviaQuestion("What's the Flat signature ?", "F", "L", "S", "T", "F", "clef4.wav",2));
-        arraylist.add(new TriviaQuestion("What's the crescendo signature ?", "C", "T", "L", "F", "C", "clef5.wav",2));
-        arraylist.add(new TriviaQuestion("What's the decrescendo signature ?", "F", "B", "S", "D", "D", "clef6.wav",2));
+        arraylist.add(new TriviaQuestion("What's the crescendo signature ?", "C", "T", "D", "F", "C", "clef5.wav",2));
+        arraylist.add(new TriviaQuestion("What's the decrescendo signature ?", "F", "C", "S", "D", "D", "clef6.wav",2));
         arraylist.add(new TriviaQuestion("What's the slur signature ?", "C", "T", "L", "F", "L", "clef7.wav",2));
         arraylist.add(new TriviaQuestion("What's the tie signature ?", "L", "B", "S", "I", "I", "clef8.wav",2));
-        arraylist.add(new TriviaQuestion("What's the repeat signature ?", "F", "R", "S", "I", "R", "clef8.wav",2));
+        arraylist.add(new TriviaQuestion("What's the repeat signature ?", "F", "R", "S", "I", "R", "clef9.wav",2));
 
         //musical Notation
         arraylist.add(new TriviaQuestion("What's the Do's location ?","F", "D","B", "C", "C",  "staff1.wav",3));

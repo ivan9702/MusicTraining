@@ -55,7 +55,7 @@ public class MainActivity extends AppCompatActivity {
     private String sharePath="no";
     Bitmap mbitmap;
     Handler  myHandler;
-    static MediaPlayer mediaPlayer1;
+    static MediaPlayer mediaPlayer1=null;
         @SuppressLint("WrongViewCast")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -350,6 +350,23 @@ public class MainActivity extends AppCompatActivity {
             e.printStackTrace();
         }
 
+    }
+    public static void stopSoundFile(){
+            if(mediaPlayer1==null)
+                return;
+        if (mediaPlayer1.isPlaying()) {
+
+            mediaPlayer1.stop();
+        }
+    }
+
+    public static void pauseSoundFile(){
+        if(mediaPlayer1==null)
+            return;
+        if (mediaPlayer1.isPlaying()) {
+
+            mediaPlayer1.pause();
+        }
     }
 
     @Override

@@ -38,8 +38,9 @@ public class MainGameActivity extends Activity {
     TriviaQuestion currentQuestion;
     List<TriviaQuestion> list;
     int qid = 0;
-    int timeValue = 20;
+    int timeValue =0;
     int coinValue = 0;
+    int timer=0;
     CountDownTimer countDownTimer;
     Typeface tb, sb;
     SharedPreferences sharedata;
@@ -52,7 +53,7 @@ public class MainGameActivity extends Activity {
 
 
         setContentView(R.layout.activity_main_game);
-
+        sharedata = getSharedPreferences("award", MODE_PRIVATE);
         //Initializing variables
         questionText = (TextView) findViewById(R.id.triviaQuestion);
         buttonA = (FButton) findViewById(R.id.buttonA);
@@ -107,16 +108,27 @@ public class MainGameActivity extends Activity {
         //currentQuestion will hold the que, 4 option and ans for particular id
         currentQuestion = list.get(qid);
 
+        timeValue = sharedata.getInt("ClockTimer",20);
+        timer = timeValue*1000+2000;
+        Log.d(TAG, "timer ...."+timer);
+        Log.d(TAG, "timeValue ...."+timeValue);
         //countDownTimer
-        countDownTimer = new CountDownTimer(22000, 1000) {
+        countDownTimer = new CountDownTimer(timer, 1000) {
             public void onTick(long millisUntilFinished) {
 
                 //here you can have your logic to set text to timeText
-                timeText.setText(String.valueOf(timeValue) + "\"");
+                if(timeValue>=10)
+                {
+                    timeText.setText(String.valueOf(timeValue) + "\"");
+                }else
+                {
+                    timeText.setTextColor(getResources().getColor(R.color.colorAccent));
+                    timeText.setText("0"+String.valueOf(timeValue) + "\"");
+                }
 
                 //With each iteration decrement the time by 1 sec
                 timeValue -= 1;
-
+                Log.d(TAG, "timeValue"+timeValue);
                 //This means the user is out of time so onFinished will called after this iteration
                 if (timeValue == -1) {
 
@@ -344,7 +356,7 @@ public class MainGameActivity extends Activity {
         buttonD.setText(currentQuestion.getOptD());
 
     }
-        timeValue = 20;
+        timeValue = sharedata.getInt("ClockTimer",20);
 
         //Now since the user has ans correct just reset timer back for another que- by cancel and start
         countDownTimer.cancel();
@@ -490,6 +502,7 @@ public class MainGameActivity extends Activity {
     protected void onPause() {
         super.onPause();
         countDownTimer.cancel();
+        MainActivity.pauseSoundFile();
     }
 
     //On BackPressed
@@ -508,6 +521,8 @@ public class MainGameActivity extends Activity {
 
         Log.d("Main onResume", "stars:"+sharedata.getInt("stars",0));
         Log.d("Main onResume", "date:"+sharedata.getString("date", "0"));
+        timeValue = sharedata.getInt("ClockTimer",20);
+        timer = timeValue*1000+2000;
         coinValue = sharedata.getInt("stars",0);
         tvStars.setText(String.valueOf(sharedata.getInt("stars",0)));
     }

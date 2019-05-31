@@ -13,10 +13,14 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".GameWon"></activity>
-        <activity android:name=".PlayAgain" />
-        <activity android:name=".Time_Up" />
-        <activity android:name=".MainGameActivity" />
+        <activity android:name=".GameWon"
+                android:screenOrientation="portrait"></activity>
+        <activity android:name=".PlayAgain"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".Time_Up"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".MainGameActivity"
+            android:screenOrientation="portrait"/>
         <activity
             android:name=".SettingActivity"
             android:screenOrientation="portrait" />

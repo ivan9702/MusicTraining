@@ -13,23 +13,23 @@ import android.widget.EditText;
 public class SettingActivity extends AppCompatActivity {
 
     EditText tvTotalAward, tvTotalHalfAward, tvErrors;
-    EditText etCars, etShield, etTV, etToy, etPark;
+    EditText etCars, etShield, etTV, etToy, etPark,etClock;
 
     SharedPreferences sharedata;
     SharedPreferences.Editor editor;
 
-    Button btnAddBasic, btnAddMedium, btnAddHigh;
-    Button btnSubtrBasic, btnSubtrMedium, btnSubtrHigh;
-    Button btnMultiBasic, btnMultiMedium, btnMultiHigh;
-    Button btnDivBasic, btnDivMedium,btnDivHigh;
+//    Button btnAddBasic, btnAddMedium, btnAddHigh;
+//    Button btnSubtrBasic, btnSubtrMedium, btnSubtrHigh;
+//    Button btnMultiBasic, btnMultiMedium, btnMultiHigh;
+//    Button btnDivBasic, btnDivMedium,btnDivHigh;
     Button btnCommit, btnCancel;
+//
+//    int AddBasic, AddMedium, AddHigh;
+//    int SubtrBasic, SubtrMedium, SubtrHigh;
+//    int  MultiBasic, MultiMedium, MultiHigh;
 
-    int AddBasic, AddMedium, AddHigh;
-    int SubtrBasic, SubtrMedium, SubtrHigh;
-    int  MultiBasic, MultiMedium, MultiHigh;
 
-
-    int Cars, Shield, TV, Toy, Park;
+    int Cars, Shield, TV, Toy, Park, Clock;
     int stars, halfstars, error;
 
     Boolean Entry_Cars = true;
@@ -37,6 +37,7 @@ public class SettingActivity extends AppCompatActivity {
     Boolean Entry_TV = true;
     Boolean Entry_Toy = true;
     Boolean Entry_Park = true;
+    Boolean Entry_Clock = true;
 
     Boolean Entry_stars = true;
     Boolean Entry_halfstar = true;
@@ -62,6 +63,7 @@ public class SettingActivity extends AppCompatActivity {
         etToy = findViewById(R.id.etToy);
         etPark = findViewById(R.id.etPark);
 
+        etClock = findViewById(R.id.etClock);
 
 
         btnCommit = findViewById(R.id.btnCommit);
@@ -174,6 +176,26 @@ public class SettingActivity extends AppCompatActivity {
             }
         });
 
+        etClock.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                if(!Entry_Clock) {
+                    etClock.setTextColor(getResources().getColor(R.color.colorAccent));
+                }
+                Entry_Clock = false;
+            }
+        });
+
         tvTotalAward.addTextChangedListener(new TextWatcher() {
 
             @Override
@@ -272,6 +294,7 @@ public class SettingActivity extends AppCompatActivity {
         Toy = sharedata.getInt("ToyNum", 0);
         Park = sharedata.getInt("ParkNum",0);
 
+        Clock = sharedata.getInt("ClockTimer", 20);
         stars = sharedata.getInt("stars",0);
         halfstars = (sharedata.getBoolean("starHalf",false)? 1:0);
         error = sharedata.getInt("errorCount",0);
@@ -290,26 +313,7 @@ public class SettingActivity extends AppCompatActivity {
 
         tvErrors.setText(Integer.toString(sharedata.getInt("errorCount",0)));
 
-        String Str = btnAddBasic.getText().toString()+Integer.valueOf(sharedata.getInt("addBasic",0));
-        btnAddBasic.setText(Str);
-        Str = btnAddMedium.getText().toString()+Integer.valueOf(sharedata.getInt("addMedium",0));
-        btnAddMedium.setText(Str);
-        Str = btnAddHigh.getText().toString()+Integer.valueOf(sharedata.getInt("addHigh",0));
-        btnAddHigh.setText(Str);
 
-        Str = btnSubtrBasic.getText().toString()+Integer.valueOf(sharedata.getInt("subtractionBasic",0));
-        btnSubtrBasic.setText(Str);
-        Str = btnSubtrMedium.getText().toString()+Integer.valueOf(sharedata.getInt("subtractionMedium",0));
-        btnSubtrMedium.setText(Str);
-        Str = btnSubtrHigh.getText().toString()+Integer.valueOf(sharedata.getInt("subtractionHigh",0));
-        btnSubtrHigh.setText(Str);
-
-        Str = btnMultiBasic.getText().toString()+Integer.valueOf(sharedata.getInt("MultiBasic",0));
-        btnMultiBasic.setText(Str);
-        Str = btnMultiMedium.getText().toString()+Integer.valueOf(sharedata.getInt("multiMedium",0));
-        btnMultiMedium.setText(Str);
-        Str = btnMultiHigh.getText().toString()+Integer.valueOf(sharedata.getInt("multiHigh",0));
-        btnMultiHigh.setText(Str);
 
 //
 //        Str = etCars.getText().toString()+Integer.valueOf(Cars);
@@ -327,6 +331,7 @@ public class SettingActivity extends AppCompatActivity {
         etTV.setText(Integer.toString(TV));
         etToy.setText(Integer.toString(Toy));
         etPark.setText(Integer.toString(Park));
+        etClock.setText(Integer.toString(Clock));
     }
 
     public void ButtonClick(View view) {
@@ -365,6 +370,8 @@ public class SettingActivity extends AppCompatActivity {
         Toy = Integer.valueOf(etToy.getText().toString());
         Park = Integer.valueOf(etPark.getText().toString());
 
+        Clock = Integer.valueOf(etClock.getText().toString());
+
         stars = Integer.valueOf(tvTotalAward.getText().toString());
         halfstars = Integer.valueOf(tvTotalHalfAward.getText().toString());
         error = Integer.valueOf(tvErrors.getText().toString());
@@ -375,6 +382,7 @@ public class SettingActivity extends AppCompatActivity {
         editor.putInt("TVNum", TV);
         editor.putInt("ToyNum", Toy);
         editor.putInt("ParkNum", Park);
+        editor.putInt("ClockTimer", Clock);
 
         editor.putInt("stars", stars);
         if(halfstars == 0)
