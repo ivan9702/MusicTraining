@@ -21,6 +21,7 @@ import android.provider.MediaStore;
 import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.text.format.DateFormat;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -32,6 +33,8 @@ import android.widget.Toast;
 import java.io.File;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Collections;
 import java.util.Date;
 
 import static android.os.SystemClock.sleep;
@@ -56,6 +59,10 @@ public class MainActivity extends Activity {
     Bitmap mbitmap;
     Handler  myHandler;
     static MediaPlayer mediaPlayer1=null;
+
+    Calendar mCal;
+    CharSequence date;
+
         @SuppressLint("WrongViewCast")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -68,8 +75,8 @@ public class MainActivity extends Activity {
         ivScreenimage = findViewById(R.id.ivScreenImage);
 
         tvStars = findViewById(R.id.tvStars);
-        tvHalfStar = findViewById(R.id.tvHalfStar);
-        tvErrors = findViewById(R.id.tvErrors);
+      //  tvHalfStar = findViewById(R.id.tvHalfStar);
+        tvErrors = findViewById(R.id.tvErrStars);
 
         imageView5 = findViewById(R.id.imageView5);
         tvOpDate = findViewById(R.id.tvOpDate);
@@ -81,6 +88,13 @@ public class MainActivity extends Activity {
         imageView5.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                if(sharedata.getBoolean("finish",false))
+                {
+                    Log.d("Main onCreate", "FINISH!!!!");
+
+                    return;
+                }
+
                 threadflag = false;
                 Intent intent = new Intent(MainActivity.this, MainGameActivity.class);
                 startActivity(intent);
@@ -109,7 +123,23 @@ public class MainActivity extends Activity {
     @Override
     protected void onResume() {
         super.onResume();
-        if (threadflag != true) {
+
+        sharedata = getSharedPreferences("award", MODE_PRIVATE);
+        editor = sharedata.edit();//获取Editor
+
+        // check date whether  changed
+        mCal = Calendar.getInstance();
+        date =  DateFormat.format("yyyyMMdd ", mCal.getTime());
+        if(!sharedata.getString("date", "0").equals(date.toString()))
+        {
+            Log.d("Main onResume", "NEW Date !!!  Reset Question List...");
+            Log.d("Main onResume",sharedata.getString("date", "0") +" : "+ date.toString() );
+            editor.putBoolean("finish", false);
+            editor.commit();
+
+        }
+
+        if ((threadflag != true)&& (!sharedata.getBoolean("finish", false))) {
             threadflag = true;
             new Thread() {
                 public void run() {
@@ -132,14 +162,21 @@ public class MainActivity extends Activity {
 
                 ;
             }.start();
+        }else{
+            imageView5.setImageResource(R.drawable.music);
         }
         sharedata = getSharedPreferences("award", MODE_PRIVATE);
         editor = sharedata.edit();//获取Editor
 
         Log.d("Main onResume", "stars:"+sharedata.getInt("stars",0));
+        Log.d("Main onResume", "Err stars:"+sharedata.getInt("errstars",0));
         Log.d("Main onResume", "date:"+sharedata.getString("date", "0"));
+        Log.d("Main onResume", "maxquest"+sharedata.getInt("maxquest", 30));
+        Log.d("Main onResume", "finish:"+sharedata.getBoolean("finish", false));
 
         tvStars.setText(String.valueOf(sharedata.getInt("stars",0)));
+        tvErrors.setTextColor(getResources().getColor(R.color.colorAccent));
+        tvErrors.setText( String.valueOf(sharedata.getInt("errstars",0)) +"/3");
         tvOpDate.setText("上一次測試日期為：　"+sharedata.getString("date", "0"));
     }
 

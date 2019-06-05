@@ -20,8 +20,8 @@
             android:id="@+id/correctText"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/correct"
-            android:textColor="@color/green"
+            android:text="@string/incorrect"
+            android:textColor="@color/red"
             android:gravity="center"
             android:textSize="30sp"/>
     </LinearLayout>
@@ -29,7 +29,7 @@
         android:id="@+id/ivcorrect"
         android:layout_width="100dp"
         android:layout_height="100dp"
-        android:src="@drawable/correct" />
+        android:src="@drawable/wrong" />
 
     <info.hoang8f.widget.FButton
         android:id="@+id/dialogNext"

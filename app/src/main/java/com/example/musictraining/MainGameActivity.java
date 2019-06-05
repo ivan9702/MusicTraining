@@ -17,6 +17,7 @@ import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import java.util.Calendar;
@@ -29,17 +30,19 @@ import static android.os.SystemClock.sleep;
 
 public class MainGameActivity extends Activity {
     int QuestType =0;
-
+    int showAnswerSec=1000;
     static int qIndex=0;
     String TAG = "Main";
     FButton buttonA, buttonB, buttonC, buttonD;
-    TextView questionText, triviaQuizText, timeText, resultText,tvStars;
+    TextView questionText, triviaQuizText, timeText, resultText,tvStars,tvErrStars;
+    ImageView ivcorrect;
     TriviaQuizHelper triviaQuizHelper;
     TriviaQuestion currentQuestion;
     List<TriviaQuestion> list;
     int qid = 0;
     int timeValue =0;
     int coinValue = 0;
+    int errCount=0;
     int timer=0;
     CountDownTimer countDownTimer;
     Typeface tb, sb;
@@ -47,6 +50,8 @@ public class MainGameActivity extends Activity {
     SharedPreferences.Editor editor;
     Calendar mCal;
     CharSequence date;
+//    Dialog dialoginCorrect;
+//    Dialog dialogCorrect;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -65,7 +70,9 @@ public class MainGameActivity extends Activity {
         resultText = (TextView) findViewById(R.id.resultText);
 
         tvStars = (TextView)findViewById(R.id.tvStars);
+        tvErrStars = (TextView)findViewById(R.id.tvErrStars);
 
+        ivcorrect = (ImageView)findViewById(R.id.ivcorrect);
         //Setting typefaces for textview and buttons - this will give stylish fonts on textview and button etc
         tb = Typeface.createFromAsset(getAssets(), "fonts/TitilliumWeb-Bold.ttf");
         sb = Typeface.createFromAsset(getAssets(), "fonts/shablagooital.ttf");
@@ -150,8 +157,14 @@ public class MainGameActivity extends Activity {
             }
         }.start();
 
+        if(!sharedata.getString("date", "0").equals(date.toString()))
+        {
+            Log.d(TAG, "Reset Question Indwx" );
+            qIndex=0;
+        }
 
-        qIndex=0;
+
+        qIndex++;
         //This method will set the que and four options
         updateQueAndOptions();
 
@@ -174,11 +187,11 @@ public class MainGameActivity extends Activity {
             }
         }).start();
 
-
-        int id=0;
+        //sharedata.getInt("maxquest", 30)
+        //int id=0;
         //This method will setText for que and options
         //questionText.setText(currentQuestion.getQuestion());
-        questionText.setText(String.valueOf(qIndex)+ ". " +currentQuestion.getQuestion());
+        questionText.setText(String.valueOf(qIndex)+ ".  " +currentQuestion.getQuestion());
         qIndex++;
 //********** NOTE NAME QUESTION******************//
     if(QuestType == 1) {
@@ -380,25 +393,21 @@ public class MainGameActivity extends Activity {
             //Check if user has not exceeds the que limit
             if (qid < list.size() - 1) {
 
-                //Now disable all the option button since user ans is correct so
-                //user won't be able to press another option button after pressing one button
                 disableButton();
-
-                //Show the dialog that ans is correct
                 correctDialog();
-            }
-            //If user has exceeds the que limit just navigate him to GameWon activity
-            else {
-
+            } else {
                 gameWon();
-
             }
-        }
-        //User ans is wrong then just navigate him to the PlayAgain activity
-        else {
-
-            gameLostPlayAgain();
-
+        } else {
+            if (qid < list.size() - 1) {
+                showTheAnswer();
+//                          sleep(showAnswerSec);
+//                          gameLostPlayAgain();
+                incorrectDialog();
+            }else
+            {
+                gameLost();
+            }
         }
     }
 
@@ -408,13 +417,22 @@ public class MainGameActivity extends Activity {
            // buttonB.setButtonColor(ContextCompat.getColor(getApplicationContext(),R.color.lightGreen));
             Log.d(TAG, "qid: "+ qid +"   list.size:"+list.size());
             if (qid < list.size() - 1) {
+
                 disableButton();
                 correctDialog();
             } else {
                 gameWon();
             }
         } else {
-            gameLostPlayAgain();
+            if (qid < list.size() - 1) {
+                showTheAnswer();
+//                          sleep(showAnswerSec);
+//                          gameLostPlayAgain();
+                incorrectDialog();
+            }else
+            {
+                gameLost();
+            }
         }
     }
 
@@ -424,14 +442,22 @@ public class MainGameActivity extends Activity {
            // buttonC.setButtonColor(ContextCompat.getColor(getApplicationContext(),R.color.lightGreen));
             Log.d(TAG, "qid: "+ qid +"   list.size:"+list.size());
             if (qid < list.size() - 1) {
+
                 disableButton();
                 correctDialog();
             } else {
                 gameWon();
             }
         } else {
-
-            gameLostPlayAgain();
+            if (qid < list.size() - 1) {
+                showTheAnswer();
+//                          sleep(showAnswerSec);
+//                          gameLostPlayAgain();
+                incorrectDialog();
+            }else
+            {
+                gameLost();
+            }
         }
     }
 
@@ -440,32 +466,203 @@ public class MainGameActivity extends Activity {
         if (currentQuestion.getOptD().equals(currentQuestion.getAnswer())) {
             //buttonD.setButtonColor(ContextCompat.getColor(getApplicationContext(),R.color.lightGreen));
             Log.d(TAG, "qid: "+ qid +"   list.size:"+list.size());
-            if (qid < list.size() - 1) {
+           if (qid < list.size() - 1) {
+
                 disableButton();
                 correctDialog();
             } else {
                 gameWon();
             }
         } else {
-            gameLostPlayAgain();
+            if (qid < list.size() - 1) {
+                showTheAnswer();
+//                          sleep(showAnswerSec);
+//                          gameLostPlayAgain();
+                incorrectDialog();
+            }else
+            {
+                gameLost();
+            }
+
         }
     }
 
 
     //This method will navigate from current activity to GameWon
     public void gameWon() {
+//        coinValue++;
+//        editor.putInt("stars",coinValue);
+//        tvStars.setText(String.valueOf(coinValue));
+//        editor.putString("date",date.toString());
+//
+//        editor.commit();
+
+        disableButton();
+
+        //Show the dialog that ans is correct
+        //correctDialog();
+
+        coinValue++;
+        editor.putInt("stars",coinValue);
+        tvStars.setText(String.valueOf(coinValue));
         editor.putString("date",date.toString());
 
         editor.commit();
-        Intent intent = new Intent(this, GameWon.class);
-        startActivity(intent);
-        finish();
+
+        final Dialog dialogCorrect = new Dialog(MainGameActivity.this);
+        dialogCorrect.requestWindowFeature(Window.FEATURE_NO_TITLE);
+        if (dialogCorrect.getWindow() != null) {
+            ColorDrawable colorDrawable = new ColorDrawable(Color.TRANSPARENT);
+            dialogCorrect.getWindow().setBackgroundDrawable(colorDrawable);
+        }
+        dialogCorrect.setContentView(R.layout.dialog_correct);
+        //ivcorrect.setImageDrawable(getResources().getDrawable(R.drawable.correct));
+        dialogCorrect.setCancelable(false);
+        dialogCorrect.show();
+
+        //Since the dialog is show to user just pause the timer in background
+        onPause();
+
+
+        TextView correctText = (TextView) dialogCorrect.findViewById(R.id.correctText);
+        FButton buttonNext = (FButton) dialogCorrect.findViewById(R.id.dialogNext);
+
+        //Setting type faces
+        correctText.setTypeface(sb);
+        buttonNext.setTypeface(sb);
+
+        //OnCLick listener to go next que
+        buttonNext.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                //This will dismiss the dialog
+                dialogCorrect.dismiss();
+//                //it will increment the question number
+//                qid++;
+//                //get the que and 4 option and store in the currentQuestion
+//                currentQuestion = list.get(qid);
+//
+//                //reset the color of buttons back to white
+//                resetColor();
+//
+//                //Now this method will set the new que and 4 options
+//                updateQueAndOptions();
+//
+//                //Enable button - remember we had disable them when user ans was correct in there particular button methods
+//                enableButton();
+
+                Intent intent = new Intent(MainGameActivity.this, GameWon.class);
+                startActivity(intent);
+                finish();
+            }
+        });
+
+//        Intent intent = new Intent(this, GameWon.class);
+//        startActivity(intent);
+//        finish();
     }
+
+    //This method will navigate from current activity to GameWon
+    public void gameLost() {
+//        coinValue++;
+//        editor.putInt("stars",coinValue);
+//        tvStars.setText(String.valueOf(coinValue));
+//        editor.putString("date",date.toString());
+//
+//        editor.commit();
+
+        disableButton();
+
+        //Show the dialog that ans is correct
+        //incorrectDialog();
+        errCount = sharedata.getInt("errstars",0);
+        coinValue = sharedata.getInt("stars",0);
+        errCount++;
+        if(errCount>=3) {
+            coinValue= coinValue-(errCount/3);
+            errCount %=3;
+            editor.putInt("errstars", errCount);
+        }
+        tvStars.setText(String.valueOf(coinValue));
+        tvErrStars.setTextColor(getResources().getColor(R.color.colorAccent));
+        tvErrStars.setText(String.valueOf(errCount)+"/3");
+        editor.putString("date",date.toString());
+        editor.putInt("errstars",errCount);
+        editor.putInt("stars", coinValue);
+
+        editor.commit();
+
+       final Dialog dialoginCorrect = new Dialog(MainGameActivity.this);
+        dialoginCorrect.requestWindowFeature(Window.FEATURE_NO_TITLE);
+        if (dialoginCorrect.getWindow() != null) {
+            ColorDrawable colorDrawable = new ColorDrawable(Color.TRANSPARENT);
+            dialoginCorrect.getWindow().setBackgroundDrawable(colorDrawable);
+        }
+        dialoginCorrect.setContentView(R.layout.dialog_incorrect);
+        // ivcorrect.setImageDrawable(getResources().getDrawable(R.drawable.wrong));
+        dialoginCorrect.setCancelable(false);
+        dialoginCorrect.show();
+
+        //Since the dialog is show to user just pause the timer in background
+        onPause();
+
+
+        TextView correctText = (TextView) dialoginCorrect.findViewById(R.id.correctText);
+        FButton buttonNext = (FButton) dialoginCorrect.findViewById(R.id.dialogNext);
+
+        //Setting type faces
+        correctText.setTypeface(sb);
+        buttonNext.setTypeface(sb);
+
+        //OnCLick listener to go next que
+        buttonNext.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                //This will dismiss the dialog
+                dialoginCorrect.dismiss();
+//                //it will increment the question number
+//                qid++;
+//                //get the que and 4 option and store in the currentQuestion
+//                currentQuestion = list.get(qid);
+//
+//                //reset the color of buttons back to white
+//                resetColor();
+//
+//                //Now this method will set the new que and 4 options
+//                updateQueAndOptions();
+//
+//                //Enable button - remember we had disable them when user ans was correct in there particular button methods
+//                enableButton();
+
+                Intent intent = new Intent(MainGameActivity.this, GameWon.class);
+                startActivity(intent);
+                finish();
+            }
+        });
+
+//        Intent intent = new Intent(this, GameWon.class);
+//        startActivity(intent);
+//        finish();
+    }
+
 
     //This method is called when user ans is wrong
     //this method will navigate user to the activity PlayAgain
     public void gameLostPlayAgain() {
+        errCount = sharedata.getInt("errstars",0);
+        coinValue = sharedata.getInt("stars",0);
+        errCount++;
+        if(errCount>=3) {
+            coinValue= coinValue-(errCount/3);
+            errCount %=3;
+            editor.putInt("errstars", errCount);
+        }
+        tvStars.setText(String.valueOf(coinValue));
+        tvErrStars.setTextColor(getResources().getColor(R.color.colorAccent));
+        tvErrStars.setText(String.valueOf(errCount)+"/3");
         editor.putString("date",date.toString());
+        editor.putInt("errstars",errCount);
+        editor.putInt("stars", coinValue);
 
         editor.commit();
         Intent intent = new Intent(this, PlayAgain.class);
@@ -477,6 +674,23 @@ public class MainGameActivity extends Activity {
     //this method will navigate user to the activity Time_Up
     public void timeUp() {
         sleep(1200);
+        errCount = sharedata.getInt("errstars",0);
+        coinValue = sharedata.getInt("stars",0);
+        errCount++;
+        if(errCount>=3) {
+            coinValue= coinValue-(errCount/3);
+            errCount %=3;
+            editor.putInt("errstars", errCount);
+        }
+        tvStars.setText(String.valueOf(coinValue));
+        tvErrStars.setTextColor(getResources().getColor(R.color.colorAccent));
+        tvErrStars.setText(String.valueOf(errCount)+"/3");
+        editor.putString("date",date.toString());
+        editor.putInt("errstars",errCount);
+        editor.putInt("stars", coinValue);
+
+        editor.commit();
+
       Intent intent = new Intent(this, Time_Up.class);
         startActivity(intent);
         finish();
@@ -516,6 +730,20 @@ public class MainGameActivity extends Activity {
     @Override
     protected void onResume() {
         super.onResume();
+
+        // check date whether  changed
+        mCal = Calendar.getInstance();
+        date =  DateFormat.format("yyyyMMdd ", mCal.getTime());
+        if(sharedata.getString("date", "0") != date.toString())
+        {
+            Log.d("Main onResume", "NEW Date !!!  Reset Question List..");
+            //Now we gonna shuffle the elements of the list so that we will get questions randomly
+            Collections.shuffle(list);
+            qid=0;
+
+            //currentQuestion will hold the que, 4 option and ans for particular id
+            currentQuestion = list.get(qid);
+        }
         sharedata = getSharedPreferences("award", MODE_PRIVATE);
         editor = sharedata.edit();//获取Editor
 
@@ -524,7 +752,10 @@ public class MainGameActivity extends Activity {
         timeValue = sharedata.getInt("ClockTimer",20);
         timer = timeValue*1000+2000;
         coinValue = sharedata.getInt("stars",0);
+        errCount = sharedata.getInt("errstars",0);
         tvStars.setText(String.valueOf(sharedata.getInt("stars",0)));
+        tvErrStars.setTextColor(getResources().getColor(R.color.colorAccent));
+        tvErrStars.setText(String.valueOf(sharedata.getInt("errstars",0))+"/3" );
     }
 
     //This dialog is show to the user after he ans correct
@@ -543,6 +774,7 @@ public class MainGameActivity extends Activity {
             dialogCorrect.getWindow().setBackgroundDrawable(colorDrawable);
         }
         dialogCorrect.setContentView(R.layout.dialog_correct);
+        //ivcorrect.setImageDrawable(getResources().getDrawable(R.drawable.correct));
         dialogCorrect.setCancelable(false);
         dialogCorrect.show();
 
@@ -563,6 +795,72 @@ public class MainGameActivity extends Activity {
             public void onClick(View view) {
                 //This will dismiss the dialog
                 dialogCorrect.dismiss();
+
+                //it will increment the question number
+                qid++;
+                //get the que and 4 option and store in the currentQuestion
+                currentQuestion = list.get(qid);
+
+                //reset the color of buttons back to white
+                resetColor();
+
+                //Now this method will set the new que and 4 options
+                updateQueAndOptions();
+
+                //Enable button - remember we had disable them when user ans was correct in there particular button methods
+                enableButton();
+            }
+        });
+    }
+
+    //This dialog is show to the user after he ans correct
+    public void incorrectDialog() {
+        errCount = sharedata.getInt("errstars",0);
+        coinValue = sharedata.getInt("stars",0);
+        errCount++;
+        if(errCount>=3) {
+            coinValue= coinValue-(errCount/3);
+            errCount %=3;
+            editor.putInt("errstars", errCount);
+        }
+        tvStars.setText(String.valueOf(coinValue));
+        tvErrStars.setTextColor(getResources().getColor(R.color.colorAccent));
+        tvErrStars.setText(String.valueOf(errCount)+"/3");
+        editor.putString("date",date.toString());
+        editor.putInt("errstars",errCount);
+        editor.putInt("stars", coinValue);
+
+        editor.commit();
+
+        final Dialog dialogCorrect = new Dialog(MainGameActivity.this);
+        dialogCorrect.requestWindowFeature(Window.FEATURE_NO_TITLE);
+        if (dialogCorrect.getWindow() != null) {
+            ColorDrawable colorDrawable = new ColorDrawable(Color.TRANSPARENT);
+            dialogCorrect.getWindow().setBackgroundDrawable(colorDrawable);
+        }
+        dialogCorrect.setContentView(R.layout.dialog_incorrect);
+       // ivcorrect.setImageDrawable(getResources().getDrawable(R.drawable.wrong));
+        dialogCorrect.setCancelable(false);
+        dialogCorrect.show();
+
+        //Since the dialog is show to user just pause the timer in background
+        onPause();
+
+
+        TextView correctText = (TextView) dialogCorrect.findViewById(R.id.correctText);
+        FButton buttonNext = (FButton) dialogCorrect.findViewById(R.id.dialogNext);
+
+        //Setting type faces
+        correctText.setTypeface(sb);
+        buttonNext.setTypeface(sb);
+
+        //OnCLick listener to go next que
+        buttonNext.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                //This will dismiss the dialog
+                dialogCorrect.dismiss();
+
                 //it will increment the question number
                 qid++;
                 //get the que and 4 option and store in the currentQuestion
