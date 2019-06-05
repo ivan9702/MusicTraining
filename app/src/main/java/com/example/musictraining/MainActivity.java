@@ -123,7 +123,7 @@ public class MainActivity extends Activity {
     @Override
     protected void onResume() {
         super.onResume();
-
+        Log.d("Main onResume","threadflag = "+threadflag);
         sharedata = getSharedPreferences("award", MODE_PRIVATE);
         editor = sharedata.edit();//获取Editor
 
@@ -242,19 +242,19 @@ public class MainActivity extends Activity {
                 case REQUEST_ID_READ_PERMISSION: {
                     if (grantResults[0] == PackageManager.PERMISSION_GRANTED) {
                         //readFile();
-                        threadflag = false;
+                       // threadflag = false;
                     }
                 }
                 case REQUEST_ID_WRITE_PERMISSION: {
                     if (grantResults[0] == PackageManager.PERMISSION_GRANTED) {
                        // Toast.makeText(getApplicationContext(), "PERMISSION_GRANTED11111", Toast.LENGTH_SHORT).show();
-                        threadflag = false;
+                      //  threadflag = false;
                     }
                 }
             }
         } else {
             Toast.makeText(getApplicationContext(), "Permission Cancelled!", Toast.LENGTH_SHORT).show();
-            threadflag = false;
+           // threadflag = false;
         }
     }
 
