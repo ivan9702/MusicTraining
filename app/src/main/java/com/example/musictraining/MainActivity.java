@@ -82,7 +82,7 @@ public class MainActivity extends Activity {
         tvOpDate = findViewById(R.id.tvOpDate);
 
         Log.d("Main onCreate", "stars:"+sharedata.getInt("stars",0));
-        askPermissionAndWriteFile();
+       // askPermissionAndWriteFile();
         //askPermissionAndReadFile();
 
         imageView5.setOnClickListener(new View.OnClickListener() {
@@ -145,7 +145,7 @@ public class MainActivity extends Activity {
                 public void run() {
                     int i = 0;
                     while (threadflag) {// 循环
-                        Log.d("Main onCreate", "while loop i=" + i);
+                       // Log.d("Main onCreate", "while loop i=" + i);
                         myHandler.sendEmptyMessage((i++) % 2);// 发送消息
 //                    System.out.println("handler的ID--->"
 //                            + Thread.currentThread().getId());
@@ -171,7 +171,9 @@ public class MainActivity extends Activity {
         Log.d("Main onResume", "stars:"+sharedata.getInt("stars",0));
         Log.d("Main onResume", "Err stars:"+sharedata.getInt("errstars",0));
         Log.d("Main onResume", "date:"+sharedata.getString("date", "0"));
-        Log.d("Main onResume", "maxquest"+sharedata.getInt("maxquest", 30));
+
+        Log.d("Main onResume", "ClockTimer"+sharedata.getInt("ClockTimer", 20));
+        Log.d("Main onResume", "maxquest"+sharedata.getInt("maxquest", 20));
         Log.d("Main onResume", "finish:"+sharedata.getBoolean("finish", false));
 
         tvStars.setText(String.valueOf(sharedata.getInt("stars",0)));

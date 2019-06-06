@@ -31,7 +31,8 @@ import static android.os.SystemClock.sleep;
 public class MainGameActivity extends Activity {
     int QuestType =0;
     int showAnswerSec=1000;
-    static int qIndex=0;
+    int maxQuest=0;
+
     String TAG = "Main";
     FButton buttonA, buttonB, buttonC, buttonD;
     TextView questionText, triviaQuizText, timeText, resultText,tvStars,tvErrStars;
@@ -39,7 +40,7 @@ public class MainGameActivity extends Activity {
     TriviaQuizHelper triviaQuizHelper;
     TriviaQuestion currentQuestion;
     List<TriviaQuestion> list;
-    int qid = 0;
+    static int qid = 0;
     int timeValue =0;
     int coinValue = 0;
     int errCount=0;
@@ -135,7 +136,7 @@ public class MainGameActivity extends Activity {
 
                 //With each iteration decrement the time by 1 sec
                 timeValue -= 1;
-                Log.d(TAG, "timeValue"+timeValue);
+               // Log.d(TAG, "timeValue"+timeValue);
                 //This means the user is out of time so onFinished will called after this iteration
                 if (timeValue == -1) {
 
@@ -159,14 +160,17 @@ public class MainGameActivity extends Activity {
 
         if(!sharedata.getString("date", "0").equals(date.toString()))
         {
-            Log.d(TAG, "Reset Question Indwx" );
-            qIndex=0;
+            Log.d(TAG, "Reset Question Index" );
+            //qIndex=0;
+            qid=0;
         }
 
 
-        qIndex++;
+       // qIndex++;
+        qid++;
+
         //This method will set the que and four options
-        updateQueAndOptions();
+       // updateQueAndOptions();
 
 
     }
@@ -174,6 +178,7 @@ public class MainGameActivity extends Activity {
 
     public void updateQueAndOptions() {
 
+        showquestionitem("0");
         QuestType = currentQuestion.getQuestType();
         Log.d(TAG, "QuestType=" + QuestType);
 
@@ -191,8 +196,10 @@ public class MainGameActivity extends Activity {
         //int id=0;
         //This method will setText for que and options
         //questionText.setText(currentQuestion.getQuestion());
-        questionText.setText(String.valueOf(qIndex)+ ".  " +currentQuestion.getQuestion());
-        qIndex++;
+        //questionText.setText(String.valueOf(qIndex)+ ".  " +currentQuestion.getQuestion());
+        //qIndex++;
+        questionText.setText(String.valueOf(qid+1)+ ".  " +currentQuestion.getQuestion());
+        //qIndex++;
 //********** NOTE NAME QUESTION******************//
     if(QuestType == 1) {
         String letter = "";
@@ -384,6 +391,7 @@ public class MainGameActivity extends Activity {
 ////  get   >>  image.getDrawable()
     //Onclick listener for first button
     public void buttonA(View view) {
+        showquestionitem("A");
         //compare the option with the ans if yes then make button color green
         if (currentQuestion.getOptA().equals(currentQuestion.getAnswer())) {
             //buttonA.setButtonColor(ContextCompat.getColor(getApplicationContext(),R.color.lightGreen));
@@ -391,7 +399,8 @@ public class MainGameActivity extends Activity {
 
             Log.d(TAG, "qid: "+ qid +"   list.size:"+list.size());
             //Check if user has not exceeds the que limit
-            if (qid < list.size() - 1) {
+//            if (qid < list.size() - 1) {
+            if (qid < maxQuest ) {
 
                 disableButton();
                 correctDialog();
@@ -399,7 +408,8 @@ public class MainGameActivity extends Activity {
                 gameWon();
             }
         } else {
-            if (qid < list.size() - 1) {
+//            if (qid < list.size() - 1) {
+            if (qid < maxQuest ) {
                 showTheAnswer();
 //                          sleep(showAnswerSec);
 //                          gameLostPlayAgain();
@@ -413,10 +423,12 @@ public class MainGameActivity extends Activity {
 
     //Onclick listener for sec button
     public void buttonB(View view) {
+        showquestionitem("B");
         if (currentQuestion.getOptB().equals(currentQuestion.getAnswer())) {
            // buttonB.setButtonColor(ContextCompat.getColor(getApplicationContext(),R.color.lightGreen));
             Log.d(TAG, "qid: "+ qid +"   list.size:"+list.size());
-            if (qid < list.size() - 1) {
+//            if (qid < list.size() - 1) {
+            if (qid < maxQuest ) {
 
                 disableButton();
                 correctDialog();
@@ -424,7 +436,8 @@ public class MainGameActivity extends Activity {
                 gameWon();
             }
         } else {
-            if (qid < list.size() - 1) {
+//            if (qid < list.size() - 1) {
+            if (qid < maxQuest ) {
                 showTheAnswer();
 //                          sleep(showAnswerSec);
 //                          gameLostPlayAgain();
@@ -438,10 +451,12 @@ public class MainGameActivity extends Activity {
 
     //Onclick listener for third button
     public void buttonC(View view) {
+        showquestionitem("C");
         if (currentQuestion.getOptC().equals(currentQuestion.getAnswer())) {
            // buttonC.setButtonColor(ContextCompat.getColor(getApplicationContext(),R.color.lightGreen));
             Log.d(TAG, "qid: "+ qid +"   list.size:"+list.size());
-            if (qid < list.size() - 1) {
+//            if (qid < list.size() - 1) {
+            if (qid < maxQuest ) {
 
                 disableButton();
                 correctDialog();
@@ -449,7 +464,8 @@ public class MainGameActivity extends Activity {
                 gameWon();
             }
         } else {
-            if (qid < list.size() - 1) {
+//            if (qid < list.size() - 1) {
+            if (qid < maxQuest ) {
                 showTheAnswer();
 //                          sleep(showAnswerSec);
 //                          gameLostPlayAgain();
@@ -463,10 +479,12 @@ public class MainGameActivity extends Activity {
 
     //Onclick listener for fourth button
     public void buttonD(View view) {
+        showquestionitem("D");
         if (currentQuestion.getOptD().equals(currentQuestion.getAnswer())) {
             //buttonD.setButtonColor(ContextCompat.getColor(getApplicationContext(),R.color.lightGreen));
             Log.d(TAG, "qid: "+ qid +"   list.size:"+list.size());
-           if (qid < list.size() - 1) {
+          // if (qid < list.size() - 1) {
+            if (qid < maxQuest ) {
 
                 disableButton();
                 correctDialog();
@@ -474,7 +492,8 @@ public class MainGameActivity extends Activity {
                 gameWon();
             }
         } else {
-            if (qid < list.size() - 1) {
+//            if (qid < list.size() - 1) {
+            if (qid < maxQuest ) {
                 showTheAnswer();
 //                          sleep(showAnswerSec);
 //                          gameLostPlayAgain();
@@ -678,7 +697,7 @@ public class MainGameActivity extends Activity {
     //This method is called when time is up
     //this method will navigate user to the activity Time_Up
     public void timeUp() {
-        sleep(1200);
+        sleep(showAnswerSec);
         errCount = sharedata.getInt("errstars",0);
         coinValue = sharedata.getInt("stars",0);
         errCount++;
@@ -715,6 +734,14 @@ public class MainGameActivity extends Activity {
         super.onStop();
         countDownTimer.cancel();
         MainActivity.stopSoundFile();
+//        if(  qIndex!=0)
+//        {
+//            qIndex--;
+//        }
+        if(  qid!=0)
+        {
+            qid--;
+        }
     }
 
     //This will pause the time
@@ -741,22 +768,33 @@ public class MainGameActivity extends Activity {
         // check date whether  changed
         mCal = Calendar.getInstance();
         date =  DateFormat.format("yyyyMMdd ", mCal.getTime());
-        if(sharedata.getString("date", "0") != date.toString())
+        if(!sharedata.getString("date", "0").equals(date.toString()))
         {
-            Log.d("Main onResume", "NEW Date !!!  Reset Question List..");
+            Log.d("Main onResume", "NEW Date !!!  Reset Question List..     qid =0");
             //Now we gonna shuffle the elements of the list so that we will get questions randomly
             Collections.shuffle(list);
             qid=0;
 
+
             //currentQuestion will hold the que, 4 option and ans for particular id
             currentQuestion = list.get(qid);
+
         }
+        updateQueAndOptions();
         sharedata = getSharedPreferences("award", MODE_PRIVATE);
         editor = sharedata.edit();//获取Editor
 
-        Log.d("Main onResume", "stars:"+sharedata.getInt("stars",0));
-        Log.d("Main onResume", "date:"+sharedata.getString("date", "0"));
+        Log.d("MainGame onResume", "stars:"+sharedata.getInt("stars",0));
+        Log.d("MainGame onResume", "date:"+sharedata.getString("date", "0"));
         timeValue = sharedata.getInt("ClockTimer",20);
+
+        maxQuest = sharedata.getInt("maxquest", 20);
+        if(list.size()-1<maxQuest)
+        {
+            maxQuest = list.size()-1;
+        }
+        Log.d("MainGame onResume", "maxquest:"+maxQuest);
+
         timer = timeValue*1000+2000;
         coinValue = sharedata.getInt("stars",0);
         errCount = sharedata.getInt("errstars",0);
@@ -773,7 +811,7 @@ public class MainGameActivity extends Activity {
         editor.putString("date",date.toString());
 
         editor.commit();
-
+        showquestionitem("Correct");
         final Dialog dialogCorrect = new Dialog(MainGameActivity.this);
         dialogCorrect.requestWindowFeature(Window.FEATURE_NO_TITLE);
         if (dialogCorrect.getWindow() != null) {
@@ -807,7 +845,7 @@ public class MainGameActivity extends Activity {
                 qid++;
                 //get the que and 4 option and store in the currentQuestion
                 currentQuestion = list.get(qid);
-
+                Log.d("MainGame ", "correctDialog !!!    qid = "+qid);
                 //reset the color of buttons back to white
                 resetColor();
 
@@ -839,6 +877,7 @@ public class MainGameActivity extends Activity {
 
         editor.commit();
 
+        showquestionitem("Incorrect");
         final Dialog dialogCorrect = new Dialog(MainGameActivity.this);
         dialogCorrect.requestWindowFeature(Window.FEATURE_NO_TITLE);
         if (dialogCorrect.getWindow() != null) {
@@ -873,7 +912,7 @@ public class MainGameActivity extends Activity {
                 qid++;
                 //get the que and 4 option and store in the currentQuestion
                 currentQuestion = list.get(qid);
-
+                Log.d("MainGame ", "incorrectDialog !!!    qid = "+qid);
                 //reset the color of buttons back to white
                 resetColor();
 
@@ -933,6 +972,21 @@ public class MainGameActivity extends Activity {
             buttonD.setButtonColor(ContextCompat.getColor(getApplicationContext(),R.color.fbutton_default_color));
 
     }
+
+    void showquestionitem(String getAnswer)
+    {
+        Log.d(TAG, "  get answer :  "+ getAnswer);
+        Log.d(TAG, "************  Question Item ************" );
+        Log.d(TAG, "the question  is: " + currentQuestion.getQuestion());
+        Log.d(TAG, "the optA is: " + currentQuestion.getOptA());
+        Log.d(TAG, "the optB is: " + currentQuestion.getOptB());
+        Log.d(TAG, "the optC is: " + currentQuestion.getOptC());
+        Log.d(TAG, "the optD is: " + currentQuestion.getOptD());
+
+        Log.d(TAG, "the answer is " + currentQuestion.getAnswer());
+        Log.d(TAG, "************************" );
+    }
+
     public void gotoStore(View view) {
         Intent it = new Intent(this,AwardStoreActivity.class);
         startActivity(it);

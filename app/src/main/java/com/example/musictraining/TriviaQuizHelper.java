@@ -109,7 +109,6 @@ public class TriviaQuizHelper extends SQLiteOpenHelper {
         arraylist.add(new TriviaQuestion("What's the eighth REST note ?", "U", "W", "E", "H", "E", "note9.wav",4));
         arraylist.add(new TriviaQuestion("What's the sixteenth REST note ?", "W", "H", "U", "I", "I", "note10.wav",4));
 
-
         this.addAllQuestions(arraylist);
 
     }
@@ -167,9 +166,9 @@ public class TriviaQuizHelper extends SQLiteOpenHelper {
 
             questionsList.add(question);
 
-            i++;
-            Log.d(TAG, "Question Number is:"+ i+ "  id: "+cursor.getInt(0));
-            Log.d(TAG, "Question Number is:"+ i+ "  id: "+cursor.getInt(8));
+//            i++;
+//            Log.d(TAG, "Question Number is:"+ i+ "  id: "+cursor.getInt(0));
+//            Log.d(TAG, "Question Number is:"+ i+ "  id: "+cursor.getInt(8));
         }
 
         db.setTransactionSuccessful();

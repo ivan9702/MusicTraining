@@ -15,6 +15,7 @@ public class SettingActivity extends AppCompatActivity {
     EditText tvTotalAward, tvTotalHalfAward, tvErrors;
     EditText etCars, etShield, etTV, etToy, etPark,etClock;
 
+    EditText etMaxQuest;
     SharedPreferences sharedata;
     SharedPreferences.Editor editor;
 
@@ -29,7 +30,7 @@ public class SettingActivity extends AppCompatActivity {
 //    int  MultiBasic, MultiMedium, MultiHigh;
 
 
-    int Cars, Shield, TV, Toy, Park, Clock;
+    int Cars, Shield, TV, Toy, Park, Clock, MaxQuest;
     int stars, halfstars, error;
 
     Boolean Entry_Cars = true;
@@ -38,6 +39,7 @@ public class SettingActivity extends AppCompatActivity {
     Boolean Entry_Toy = true;
     Boolean Entry_Park = true;
     Boolean Entry_Clock = true;
+    Boolean Entry_MaxQuest = true;
 
     Boolean Entry_stars = true;
     Boolean Entry_halfstar = true;
@@ -64,7 +66,7 @@ public class SettingActivity extends AppCompatActivity {
         etPark = findViewById(R.id.etPark);
 
         etClock = findViewById(R.id.etClock);
-
+        etMaxQuest = findViewById(R.id.etMaxQuest);
 
         btnCommit = findViewById(R.id.btnCommit);
         btnCancel = findViewById(R.id.btnCancel);
@@ -196,6 +198,27 @@ public class SettingActivity extends AppCompatActivity {
             }
         });
 
+        etMaxQuest.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                if(!Entry_MaxQuest) {
+                    etMaxQuest.setTextColor(getResources().getColor(R.color.colorAccent));
+                }
+                Entry_MaxQuest = false;
+            }
+        });
+
+
         tvTotalAward.addTextChangedListener(new TextWatcher() {
 
             @Override
@@ -295,6 +318,8 @@ public class SettingActivity extends AppCompatActivity {
         Park = sharedata.getInt("ParkNum",0);
 
         Clock = sharedata.getInt("ClockTimer", 20);
+        MaxQuest = sharedata.getInt("maxquest", 20);
+
         stars = sharedata.getInt("stars",0);
         halfstars = (sharedata.getBoolean("starHalf",false)? 1:0);
         error = sharedata.getInt("errorCount",0);
@@ -332,6 +357,7 @@ public class SettingActivity extends AppCompatActivity {
         etToy.setText(Integer.toString(Toy));
         etPark.setText(Integer.toString(Park));
         etClock.setText(Integer.toString(Clock));
+        etMaxQuest.setText(Integer.toString(MaxQuest));
     }
 
     public void ButtonClick(View view) {
@@ -371,6 +397,7 @@ public class SettingActivity extends AppCompatActivity {
         Park = Integer.valueOf(etPark.getText().toString());
 
         Clock = Integer.valueOf(etClock.getText().toString());
+        MaxQuest = Integer.valueOf(etMaxQuest.getText().toString());
 
         stars = Integer.valueOf(tvTotalAward.getText().toString());
         halfstars = Integer.valueOf(tvTotalHalfAward.getText().toString());
@@ -383,6 +410,7 @@ public class SettingActivity extends AppCompatActivity {
         editor.putInt("ToyNum", Toy);
         editor.putInt("ParkNum", Park);
         editor.putInt("ClockTimer", Clock);
+        editor.putInt("maxquest", MaxQuest);
 
         editor.putInt("stars", stars);
         if(halfstars == 0)
