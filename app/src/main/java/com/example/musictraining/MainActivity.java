@@ -373,6 +373,9 @@ public class MainActivity extends Activity {
         mediaPlayer1.start();
   */
         try {
+
+            if(mediaPlayer1!=null)
+                mediaPlayer1.stop();
             AssetManager assetManager = context.getAssets();
             AssetFileDescriptor afd = assetManager.openFd(wavPath);
             mediaPlayer1 = new MediaPlayer();

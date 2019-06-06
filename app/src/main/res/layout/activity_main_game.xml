@@ -35,12 +35,19 @@
                 android:layout_height="match_parent"
 
                 android:layout_toRightOf="@+id/coinImage"
-                android:layout_toLeftOf="@+id/clock"
+                android:layout_toLeftOf="@+id/play"
                 android:gravity="center"
                 android:text="@string/app_name"
                 android:textColor="@color/white"
                 android:textSize="25sp" />
 
+            <ImageView
+                android:id="@+id/play"
+                android:layout_width="80dp"
+                android:layout_height="wrap_content"
+                android:layout_toLeftOf="@+id/clock"
+                android:src="@drawable/arrowsplay"
+                android:onClick="playSound"/>
 
 
             <ImageView

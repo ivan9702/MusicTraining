@@ -591,6 +591,10 @@ public class MainGameActivity extends Activity {
         editor.putInt("stars", coinValue);
 
         editor.commit();
+        MainActivity.stopSoundFile();
+        Intent intent = new Intent(this, GameWon.class);
+        startActivity(intent);
+        finish();
 
        final Dialog dialoginCorrect = new Dialog(MainGameActivity.this);
         dialoginCorrect.requestWindowFeature(Window.FEATURE_NO_TITLE);
@@ -665,6 +669,7 @@ public class MainGameActivity extends Activity {
         editor.putInt("stars", coinValue);
 
         editor.commit();
+        MainActivity.stopSoundFile();
         Intent intent = new Intent(this, PlayAgain.class);
         startActivity(intent);
         finish();
@@ -709,6 +714,7 @@ public class MainGameActivity extends Activity {
     protected void onStop() {
         super.onStop();
         countDownTimer.cancel();
+        MainActivity.stopSoundFile();
     }
 
     //This will pause the time
@@ -722,6 +728,7 @@ public class MainGameActivity extends Activity {
     //On BackPressed
     @Override
     public void onBackPressed() {
+        MainActivity.stopSoundFile();
         Intent intent = new Intent(this, MainActivity.class);
         startActivity(intent);
         finish();
@@ -788,7 +795,7 @@ public class MainGameActivity extends Activity {
         //Setting type faces
         correctText.setTypeface(sb);
         buttonNext.setTypeface(sb);
-
+        MainActivity.stopSoundFile();
         //OnCLick listener to go next que
         buttonNext.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -853,6 +860,7 @@ public class MainGameActivity extends Activity {
         //Setting type faces
         correctText.setTypeface(sb);
         buttonNext.setTypeface(sb);
+        MainActivity.stopSoundFile();
 
         //OnCLick listener to go next que
         buttonNext.setOnClickListener(new View.OnClickListener() {
@@ -933,5 +941,9 @@ public class MainGameActivity extends Activity {
     public void clockStop(View view) {
         onPause();
 
+    }
+
+    public void playSound(View view) {
+        MainActivity.playSoundFile(currentQuestion.getWavPath());
     }
 }
