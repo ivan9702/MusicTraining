@@ -216,8 +216,8 @@
             android:id="@+id/ivClock"
             android:layout_width="50dp"
             android:layout_height="50dp"
-            android:layout_marginLeft="80dp"
-            android:layout_marginRight="5dp"
+            android:layout_marginLeft="50dp"
+            android:layout_marginRight="10dp"
             android:layout_marginBottom="30dp"
             android:src="@drawable/timer" />
 
@@ -225,6 +225,7 @@
             android:id="@+id/etClock"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+
             android:layout_marginBottom="15dp"
             android:inputType="number"
             android:textSize="24sp" />
@@ -234,8 +235,8 @@
             android:id="@+id/textView2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginLeft="50dp"
 
-            android:layout_marginLeft="100dp"
             android:text="MAX QUESTION:" />
 
         <EditText
@@ -243,8 +244,27 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginBottom="15dp"
+
             android:inputType="number"
             android:textSize="24sp" />
+
+        <TextView
+            android:id="@+id/textView3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="55dp"
+
+            android:text="Completed Flag" />
+
+        <EditText
+            android:id="@+id/etCompleted"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="25dp"
+            android:layout_marginBottom="15dp"
+
+            android:textSize="18sp" />
+
     </LinearLayout>
 
 

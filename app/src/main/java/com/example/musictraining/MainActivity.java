@@ -130,6 +130,7 @@ public class MainActivity extends Activity {
         // check date whether  changed
         mCal = Calendar.getInstance();
         date =  DateFormat.format("yyyyMMdd ", mCal.getTime());
+        Log.d("Main Resume", "finish flag: "+sharedata.getBoolean("finish", false));
         if(!sharedata.getString("date", "0").equals(date.toString()))
         {
             Log.d("Main onResume", "NEW Date !!!  Reset Question List...");

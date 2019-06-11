@@ -15,7 +15,7 @@ public class SettingActivity extends AppCompatActivity {
     EditText tvTotalAward, tvTotalHalfAward, tvErrors;
     EditText etCars, etShield, etTV, etToy, etPark,etClock;
 
-    EditText etMaxQuest;
+    EditText etMaxQuest, etCompleted;
     SharedPreferences sharedata;
     SharedPreferences.Editor editor;
 
@@ -33,6 +33,8 @@ public class SettingActivity extends AppCompatActivity {
     int Cars, Shield, TV, Toy, Park, Clock, MaxQuest;
     int stars, halfstars, error;
 
+    Boolean Completed =false;
+
     Boolean Entry_Cars = true;
     Boolean Entry_Shield = true;
     Boolean Entry_TV = true;
@@ -40,6 +42,7 @@ public class SettingActivity extends AppCompatActivity {
     Boolean Entry_Park = true;
     Boolean Entry_Clock = true;
     Boolean Entry_MaxQuest = true;
+    Boolean Entry_Completed = true;
 
     Boolean Entry_stars = true;
     Boolean Entry_halfstar = true;
@@ -67,6 +70,7 @@ public class SettingActivity extends AppCompatActivity {
 
         etClock = findViewById(R.id.etClock);
         etMaxQuest = findViewById(R.id.etMaxQuest);
+        etCompleted = findViewById(R.id.etCompleted);
 
         btnCommit = findViewById(R.id.btnCommit);
         btnCancel = findViewById(R.id.btnCancel);
@@ -218,6 +222,25 @@ public class SettingActivity extends AppCompatActivity {
             }
         });
 
+        etCompleted.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                if(!Entry_Completed) {
+                    etCompleted.setTextColor(getResources().getColor(R.color.colorAccent));
+                }
+                Entry_Completed = false;
+            }
+        });
 
         tvTotalAward.addTextChangedListener(new TextWatcher() {
 
@@ -319,6 +342,7 @@ public class SettingActivity extends AppCompatActivity {
 
         Clock = sharedata.getInt("ClockTimer", 20);
         MaxQuest = sharedata.getInt("maxquest", 20);
+        Completed = sharedata.getBoolean("finish", false);
 
         stars = sharedata.getInt("stars",0);
         halfstars = (sharedata.getBoolean("starHalf",false)? 1:0);
@@ -358,6 +382,10 @@ public class SettingActivity extends AppCompatActivity {
         etPark.setText(Integer.toString(Park));
         etClock.setText(Integer.toString(Clock));
         etMaxQuest.setText(Integer.toString(MaxQuest));
+        if(Completed)
+            etCompleted.setText("ture");
+        else
+            etCompleted.setText("false");
     }
 
     public void ButtonClick(View view) {
@@ -399,6 +427,16 @@ public class SettingActivity extends AppCompatActivity {
         Clock = Integer.valueOf(etClock.getText().toString());
         MaxQuest = Integer.valueOf(etMaxQuest.getText().toString());
 
+        Log.d("Setting onResume", "finish: "+etCompleted.getText().toString());
+        if(etCompleted.getText().toString().equals("true"))
+        {
+            Log.d("Setting onResume", "finish: "+"set true");
+            editor.putBoolean("finish", true);
+        }
+        else {
+            Log.d("Setting onResume", "finish: "+"set false");
+            editor.putBoolean("finish", false);
+        }
         stars = Integer.valueOf(tvTotalAward.getText().toString());
         halfstars = Integer.valueOf(tvTotalHalfAward.getText().toString());
         error = Integer.valueOf(tvErrors.getText().toString());
