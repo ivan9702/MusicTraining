@@ -190,6 +190,8 @@ public class MainGameActivity extends Activity {
                 // 您要在執行緒作的事
                 sleep(1000);
                 MainActivity.playSoundFile(currentQuestion.getWavPath());
+                sleep(1000);
+                //enableButton();
             }
         }).start();
 
@@ -383,6 +385,8 @@ public class MainGameActivity extends Activity {
         countDownTimer.cancel();
         countDownTimer.start();
 
+        sleep(1000);
+        enableButton();
         //set the value of coin text
        // coinText.setText(String.valueOf(coinValue));
         //Now since user has ans correct increment the coinvalue
@@ -854,7 +858,7 @@ public class MainGameActivity extends Activity {
                 updateQueAndOptions();
 
                 //Enable button - remember we had disable them when user ans was correct in there particular button methods
-                enableButton();
+                //enableButton();
             }
         });
     }
@@ -921,7 +925,7 @@ public class MainGameActivity extends Activity {
                 updateQueAndOptions();
 
                 //Enable button - remember we had disable them when user ans was correct in there particular button methods
-                enableButton();
+                //enableButton();
             }
         });
     }
