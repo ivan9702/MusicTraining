@@ -26,7 +26,12 @@ public class Time_Up extends AppCompatActivity {
         playAgainButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+
+
+
+
                 Intent intent = new Intent(Time_Up.this,MainGameActivity.class);
+
                 startActivity(intent);
                 finish();
 

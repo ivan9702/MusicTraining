@@ -90,28 +90,29 @@ public class MainGameActivity extends Activity {
         mCal = Calendar.getInstance();
         date =  DateFormat.format("yyyyMMdd ", mCal.getTime());
 
-        //Our database helper class
-        triviaQuizHelper = new TriviaQuizHelper(this);
-        //Make db writable
-        triviaQuizHelper.getWritableDatabase();
+
+            //Our database helper class
+            triviaQuizHelper = new TriviaQuizHelper(this);
+            //Make db writable
+            triviaQuizHelper.getWritableDatabase();
 
 
-        Log.d(TAG, "brfore trivia Question..");
+            Log.d(TAG, "brfore trivia Question..");
 
-        //It will check if the ques,options are already added in table or not
-        //If they are not added then the getAllOfTheQuestions() will return a list of size zero
-        if (triviaQuizHelper.getAllOfTheQuestions().size() == 0) {
-            //If not added then add the ques,options in table
-            Log.d(TAG, "in all trivia Question..");
-            triviaQuizHelper.allQuestion();
-        }
+            //It will check if the ques,options are already added in table or not
+            //If they are not added then the getAllOfTheQuestions() will return a list of size zero
+            if (triviaQuizHelper.getAllOfTheQuestions().size() == 0) {
+                //If not added then add the ques,options in table
+                Log.d(TAG, "in all trivia Question..");
+                triviaQuizHelper.allQuestion();
+            }
 
-        Log.d(TAG, "get all trivia Question..");
-        //This will return us a list of data type TriviaQuestion
-        list = triviaQuizHelper.getAllOfTheQuestions();
-        Log.d(TAG, "shuffle list..");
-        //Now we gonna shuffle the elements of the list so that we will get questions randomly
-        Collections.shuffle(list);
+            Log.d(TAG, "get all trivia Question..");
+            //This will return us a list of data type TriviaQuestion
+            list = triviaQuizHelper.getAllOfTheQuestions();
+            Log.d(TAG, "shuffle list..");
+            //Now we gonna shuffle the elements of the list so that we will get questions randomly
+            Collections.shuffle(list);
 
         //currentQuestion will hold the que, 4 option and ans for particular id
         currentQuestion = list.get(qid);
@@ -717,7 +718,7 @@ public class MainGameActivity extends Activity {
 
       Intent intent = new Intent(this, Time_Up.class);
         startActivity(intent);
-        finish();
+        //finish();
     }
 
     //If user press home button and come in the game from memory then this
@@ -975,7 +976,7 @@ public class MainGameActivity extends Activity {
 
     void showquestionitem(String getAnswer)
     {
-        Log.d(TAG, "  get answer :  "+ getAnswer);
+        Log.d(TAG, " showquestionitem  get answer :  "+ getAnswer);
         Log.d(TAG, "************  Question Item ************" );
         Log.d(TAG, "the question  is: " + currentQuestion.getQuestion());
         Log.d(TAG, "the optA is: " + currentQuestion.getOptA());

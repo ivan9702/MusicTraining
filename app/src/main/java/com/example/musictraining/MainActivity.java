@@ -97,6 +97,7 @@ public class MainActivity extends Activity {
 
                 threadflag = false;
                 Intent intent = new Intent(MainActivity.this, MainGameActivity.class);
+
                 startActivity(intent);
                 finish();
             }
@@ -388,7 +389,7 @@ public class MainActivity extends Activity {
             mediaPlayer1.prepare();
 
 
-            mediaPlayer1.start();
+           // mediaPlayer1.start();
         } catch (Exception e) {
             e.printStackTrace();
         }
